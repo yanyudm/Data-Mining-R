@@ -35,7 +35,7 @@ In order to demonstrate this simple machine learning algorithm, I use Iris datas
 
 ### Load and prepare the Iris dataset
 
-Before start, always do 
+Before start, always do, you should
 
 * set the working directory!
 * create a new R script (unless you are continuing last project)
