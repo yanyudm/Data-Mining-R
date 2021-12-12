@@ -42,7 +42,7 @@ table th:nth-of-type(3) {
 | [3.A Linear regression and prediction](lecture/3.A_LinearReg.html)           |
 | [3.B Subset variable selection](lecture/3.B_SubsetVS.html)                   |
 | [3.C LASSO variable selection](lecture/3.C_LASSO.html)                      |
-| [3.D Monte Carlo simulation](lecture/3.D_Simulation.html)                      |
+| [3.D Monte Carlo simulation (optional)](lecture/3.D_Simulation.html)                      |
 
 ### Logistic Regression
 
