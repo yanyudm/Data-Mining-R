@@ -14,14 +14,14 @@ editor_options:
 
 The objective of this case is to get you understand logistic regression (binary classification) and some important ideas such as cross validation, ROC curve, cut-off probability. 
 
-# Credit Card Default Data
+# (Taiwan) Credit Card Default Data
 
 We will use a Credit Card Default Data for this lab and illustration. The details of the data can be found at http://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients. 
 Think about what kind of factors could affect people to fail to pay their credit balance.
 
-We first load the credit scoring data. It is easy to load comma-separated values (CSV). 
+We first load the credit scoring data. It is easy to load comma-separated values (CSV). The credit data in this lab is a subsample (n=12,000 rows) of the full credit UCI data (n=30,000). 
 ```{r}
-credit_data <- read.csv(file = "https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
+credit_data <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
 ```
 
 Look at what information do we have.
@@ -53,7 +53,7 @@ credit_data$EDUCATION<- as.factor(credit_data$EDUCATION)
 credit_data$MARRIAGE<- as.factor(credit_data$MARRIAGE)
 ```
 
-*We omit other EDA, but you shouldn't whenever you are doing data analysis.*
+*We omit other EDA, but you shouldn't, whenever you are doing data analysis.*
 
 [go to top](#header)
 
@@ -76,23 +76,6 @@ summary(credit_glm0)
 
 You have seen `glm()` before. In this lab, this is the main function used to build logistic regression model because it is a member of generalized linear model. In `glm()`, the only thing new is `family`. It specifies the distribution of your response variable. You may also specify the link function after the name of distribution, for example, `family=binomial(logit)` (default link is logit). You can also specify `family=binomial(link = "probit")` to run probit regression. You may also use `glm()` to build many other generalized linear models.
 
-### (Optional) Two-way contingency table and Chi-square test
-
-Two-way contingency table is a very useful tool for exploring the relationship between categorical variables. It is essentially the simplest pivot-table (see example below). Often time, after you create a two-way contingency table, Chi-square test is used to test if X affect Y. The null hypothesis is: X and Y are independent (e.g., MARRIAGE has nothing to do with likelihood of default).
-
-The $\chi^2$ test statistic is defined as
-$$\chi^2=\sum \frac{(observed-expected)^2}{expected},$$
-where the expected count is calculated by assuming row variable has nothing to do with column variable.
-
-Here is a very good tutorial for Chi-square test https://www.youtube.com/watch?v=WXPBoFDqNVk. 
-
-```{r}
-table_edu <- table(credit_data$EDUCATION, credit_data$default)
-table_edu
-chisq.test(table_edu)
-```
-
-What we saw from above test result is that p-value < 0.05. What is your conclusion?
 
 [go to top](#header)
 
@@ -139,18 +122,7 @@ table(credit_train$default, (pred_resp > 0.2)*1, dnn=c("Truth","Predicted"))
 table(credit_train$default, (pred_resp > 0.0001)*1, dnn=c("Truth","Predicted"))
 ```
 
-# Starter code for German credit scoring
 
-Refer to http://archive.ics.uci.edu/ml/datasets/Statlog+(German+Credit+Data)) for variable description. Notice that "It is worse to class a customer as good when they are bad (weight = 5), than it is to class a customer as bad when they are good (weight = 1)." Define your cost function accordingly!
-
-```{r, eval=FALSE}
-install.packages('caret')
-```
-
-```{r, message=FALSE}
-library(caret) #this package contains the german data with its numeric format
-data(GermanCredit)
-```
 
 [go to top](#header)
 

@@ -21,7 +21,7 @@ Think about what kind of factors could affect people to fail to pay their credit
 
 We first load the credit scoring data. It is easy to load comma-separated values (CSV). 
 ```{r}
-credit_data <- read.csv(file = "https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
+credit_data <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
 ```
 
 Look at what information do we have.
@@ -104,7 +104,7 @@ table(credit_train$default, (pred_resp > 0.2)*1, dnn=c("Truth","Predicted"))
 table(credit_train$default, (pred_resp > 0.0001)*1, dnn=c("Truth","Predicted"))
 ```
 
-### In-sample prediction (less important)
+### In-sample prediction
 ```{r}
 pred_glm0_train<- predict(credit_glm0, type="response")
 ```
@@ -136,7 +136,7 @@ unlist(slot(performance(pred, "auc"), "y.values"))
 Be careful that the function `prediction()` is different from `predict()`. It is in Package `ROCR`, and is particularly used for preparing for ROC curve. Recall out lecture, this function basically calculates many confusion matrices with different cut-off probability. Therefore, it requires two vectors as inputs -- **predicted probability** and **observed response (0/1)**. The next line, `performance()` calculates TPR and FPR based all confusion matrices you get from previous step. Then you can simply draw the ROC curve, which is a curve of FPR vs. TPR. The last line is to get AUC (area under the curve). I would recommend you to stick these four lines of code together, and use it to get ROC curve and AUC. If you don't want to draw the ROC curve (because it takes time), just comment out plot line.
 
 
-### Out-of-sample prediction (more important)
+### Out-of-sample prediction (very important)
 ```{r}
 pred_glm0_test<- predict(credit_glm0, newdata = credit_test, type="response")
 ```
@@ -187,15 +187,13 @@ plot(pr.test, main="Out-of-sample PR curve")
 
 * Know how to get ROC and AUC based on predicted probability;
 
-* Know how to get PR curve and AUC based on predicted probability;
-
 ## Guide for Assignment
 
 * EDA
 
 * Train logistic model
 
-* Prediction (ROC, AUC; PR, AUC)
+* Prediction (ROC, AUC)
 
 * Model comparison using AUC
 
