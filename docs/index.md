@@ -49,16 +49,16 @@ table th:nth-of-type(3) {
 |:----------|
 | [4.A Logistic regression and prediction](lecture/4.A_LogisticReg.html)       |
 | [4.B Logistic regression and variable selection](lecture/4.B_LogisticReg_VS.html)     |
-
+| [4.C Logistic Regression for binary classification](lecture/4.C_LogisticReg_Classification.html)  |
+| [4.D Logistic regression and ROC](lecture/4.D_LogisticReg_ROC.html)           |
 
 ### Cross Validation
 
 | Lab Notes |
 |:----------|
-| [5.A Logistic Regression for binary classification](lecture/5.A_LogisticReg_Classification.html)  |
-| [5.B Logistic regression and ROC](lecture/5.B_LogisticReg_ROC.html)           |
-| [5.C Cross validation](lecture/5.C_CrossValidation.html)                      |
-| [5.D Cross validation (Logit model)](lecture/5.D_CrossValidationLogit.html)   |
+
+| [5.A Cross validation](lecture/5.A_CrossValidation.html)                      |
+| [5.B Cross validation (Logit model)](lecture/5.B_CrossValidationLogit.html)   |
 
 ### Tree Models
 
