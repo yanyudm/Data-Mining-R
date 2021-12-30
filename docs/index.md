@@ -56,7 +56,6 @@ table th:nth-of-type(3) {
 
 | Lab Notes |
 |:----------|
-
 | [5.A Cross validation](lecture/5.A_CrossValidation.html)                      |
 | [5.B Cross validation (Logit model)](lecture/5.B_CrossValidationLogit.html)   |
 
