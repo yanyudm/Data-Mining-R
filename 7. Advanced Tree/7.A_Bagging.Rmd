@@ -14,7 +14,7 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-In this lab, we will cover some state-of-the-art techniques in the framework of tree models. We use the same datasets as in previous lab, Boston Housing data and Credit Scoring data.
+In this lab, we will cover some state-of-the-art techniques in the framework of tree models. We use the same datasets as in previous lab, Boston Housing data and (Taiwan) Credit Card default data (subsample n=12,000 rows).
 
 ```{r}
 # load Boston data
@@ -25,7 +25,7 @@ boston_train <- Boston[index,]
 boston_test <- Boston[-index,]
 
 # load credit card data
-credit_data <- read.csv(file = "https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
+credit_data <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
 # convert categorical variables
 credit_data$SEX<- as.factor(credit_data$SEX)
 credit_data$EDUCATION<- as.factor(credit_data$EDUCATION)
