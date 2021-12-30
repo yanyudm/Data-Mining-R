@@ -110,9 +110,6 @@ iris_train <- rbind(setosa[ind,], versicolor[ind,], virginica[ind,])
 iris_test <- rbind(setosa[-ind,], versicolor[-ind,], virginica[-ind,])
 ```
 
-> **Exercise: (HW 1)**
-> Random sample a training data set that contains 80% of original data points.
-
 ### Train the model
 
 In R, `knn()` function is designed to perform K-nearest neighbor. It is in package `"class"`.
