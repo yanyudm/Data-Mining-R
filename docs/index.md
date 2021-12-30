@@ -42,7 +42,6 @@ table th:nth-of-type(3) {
 | [3.A Linear regression and prediction](lecture/3.A_LinearReg.html)           |
 | [3.B Subset variable selection](lecture/3.B_SubsetVS.html)                   |
 | [3.C LASSO variable selection](lecture/3.C_LASSO.html)                      |
-| [3.D Monte Carlo simulation](lecture/3.D_Simulation.html)                      |
 
 ### Logistic Regression
 
@@ -50,15 +49,16 @@ table th:nth-of-type(3) {
 |:----------|
 | [4.A Logistic regression and prediction](lecture/4.A_LogisticReg.html)       |
 | [4.B Logistic regression and variable selection](lecture/4.B_LogisticReg_VS.html)     |
-| [4.C Logistic Regression for binary classification](lecture/4.C_LogisticReg_Classification.html)  |
-| [4.D Logistic regression and ROC](lecture/4.D_LogisticReg_ROC.html)           |
+
 
 ### Cross Validation
 
 | Lab Notes |
 |:----------|
-| [5.A Cross validation](lecture/5.A_CrossValidation.html)                      |
-| [5.B Cross validation (Logit model)](lecture/5.B_CrossValidationLogit.html)   |
+| [5.A Logistic Regression for binary classification](lecture/5.A_LogisticReg_Classification.html)  |
+| [5.B Logistic regression and ROC](lecture/5.B_LogisticReg_ROC.html)           |
+| [5.C Cross validation](lecture/5.C_CrossValidation.html)                      |
+| [5.D Cross validation (Logit model)](lecture/5.D_CrossValidationLogit.html)   |
 
 ### Tree Models
 
@@ -104,7 +104,7 @@ table th:nth-of-type(3) {
 
 ### Other Topics 1: Basic Text Mining
 
-[Basic Text Mining](lecture/Basic_Text_Mining.html)
+[(Optional) Basic Text Mining](lecture/Basic_Text_Mining.html)
 
 
 <a id="bottom"></a>
