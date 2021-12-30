@@ -20,11 +20,13 @@ Cross validation is an alternative approach to training/testing split. For k-fol
 
 Note
 
-1. We use the **entire** dataset for cross validation
+1. We use the **full** data (or all the data available) for cross validation
 
-2. We need to use glm instead of lm to fit the model (if we want to use cv.glm fucntion in boot package)
+2. If you use cross validation to determine tuning parameters such as in LASSO, you should use the training data only (or equivalently all the data available to build the training model).
 
-3. The default measure of performance is the Mean Squared Error (MSE). If we want to use another measure we need to define a cost function.
+3. We need to use glm instead of lm to fit the model (if we want to use cv.glm fucntion in boot package)
+
+4. The default measure of performance is the Mean Squared (Prediction) Error (MSPE) for continuous responses in regression such as medv in Boston housing case. If we want to use another measure we need to define a cost function.
 
 ## Cross validation for linear model
 
@@ -68,9 +70,9 @@ cv.glm(data = Boston, glmfit = model_2, K = nrow(Boston))$delta[2]
 ```
 
 
-### Cross Validation for search optimal tuning parameter in LASSO 
+### Cross Validation to search optimal tuning parameter in LASSO 
 
-Using 10-fold cross-validation to search optimal lambda: 
+Using 10-fold cross-validation to search optimal lambda, assume that you have the full data available to build a training model: 
 
 ```{r message=FALSE}
 library(glmnet)
@@ -90,22 +92,6 @@ Given a selected _s_ you can use _predict()_ this way to get prediction:
 coef(lasso_fit, s = cv_lasso_fit$lambda.min)
 pred_IS <- predict(lasso_fit, as.matrix(Boston[, -c(which(colnames(Boston)=='medv'))]), s = cv_lasso_fit$lambda.min)
 MAE_cost(pred_IS, Boston$medv)
-```
-
-### (Optional) Supplementary package: DAAG 
-
-Another package DAAG also does cross validation. It prints out the performance in each fold and gives you a plot at the end. But currently I cannot figure out how to get the cross-validation error programmatically.
-
-```{r, eval=FALSE}
-install.packages('DAAG')
-```
-
-```{r,message=FALSE, eval=FALSE}
-library(DAAG)
-```
-```{r, warning=FALSE, eval=FALSE}
-model_2 <- lm(medv~indus + rm, data = Boston)
-cv3 <- cv.lm(data = Boston, form.lm = model_2, m=3)
 ```
 
 [go to top](#header)
