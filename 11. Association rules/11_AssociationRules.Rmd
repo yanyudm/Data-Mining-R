@@ -182,7 +182,7 @@ For Cincinnati Zoo data, use the following code to load the transaction data for
 
 
 ```{r, eval=FALSE}
-TransFood <- read.csv('https://xiaoruizhu.github.io/Data-Mining-R/data/food_4_association.csv')
+TransFood <- read.csv('https://yanyudm.github.io/Data-Mining-R/data/food_4_association.csv')
 TransFood <- TransFood[, -1]
 # Find out elements that are not equal to 0 or 1 and change them to 1.
 Others <- which(!(as.matrix(TransFood) ==1 | as.matrix(TransFood) ==0), arr.ind=T )
