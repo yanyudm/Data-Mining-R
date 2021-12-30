@@ -144,9 +144,8 @@ AIC(model_1)
 
 > Exercise 
 
->   1. Comparing in-sample and out-of-sample performance between these reduced models. 
+>   1. Compare in-sample and out-of-sample performance between these reduced models. 
 
->   2. Conduct 10-fold cross validation on the full sample and compare the CV scores.
 
 * For pros and cons of variable/model selection using the common fit statistics: (adjusted) $R^2$, MSE, AIC, BIC, etc. refer to Ch9 in "Applied Linear Regression Models" by Kutner et al.
 * For other variable selection methods refer to section 3.4 - 3.8 of ["Elements of Statistical Learning" (Free Online)](http://www-stat.stanford.edu/~tibs/ElemStatLearn/).
