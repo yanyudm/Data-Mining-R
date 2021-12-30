@@ -80,7 +80,7 @@ mean((pi.out - Boston_test$medv)^2)
 ## GAM on Bankruptcy dataset
 
 ```{r echo=TRUE, message = FALSE,warning=FALSE, results='hide'}
-Bank_data <- read.csv(file = "https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/bankruptcy.csv", header=T)
+Bank_data <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/bankruptcy.csv", header=T)
 # summary(Bank_data)
 
 sample_index <- sample(nrow(Bank_data),nrow(Bank_data)*0.70)
