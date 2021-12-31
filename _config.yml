@@ -1,1 +1,6 @@
+title: "Data Mining in R"
+description: "By Xiaorui Zhu, Brittany Green, and Yan Yu <br /> The greatest truths are the simplest. -- Tao Te Ching <br /> "
+show_downloads: FALSE
 theme: jekyll-theme-cayman
+google_analytics: [UA-54280540-4]
+markdown: kramdown
