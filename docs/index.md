@@ -1,6 +1,8 @@
 # Data Mining in R
 
-This set of learning materials for undergraduate and graduate data mining class is currently maintained by [Xiaorui Zhu](https://homepages.uc.edu/~zhuxr/). Many materials are from [Dr. Yan Yu](https://business.uc.edu/faculty-and-research/departments/obais/faculty/yan-yu.html)'s previous class notes. Thanks for the contribution from previous [Ph.D. students](#bottom) in Lindner College of Business. Thanks to [Dr. Brittany Green](https://business.louisville.edu/faculty-research/faculty-directory/brittany-green-phd/) for recording the videos. 
+This set of learning materials for undergraduate and graduate data mining class are based on [Dr. Yan Yu](https://business.uc.edu/faculty-and-research/departments/obais/faculty/yan-yu.html)'s class notes. Thanks for the contribution from previous [Ph.D. students](#bottom) in Lindner College of Business.
+Thanks to [Xiaorui Zhu](https://homepages.uc.edu/~zhuxr/) for setting up the initial github page. 
+And thanks to [Dr. Brittany Green](https://business.louisville.edu/faculty-research/faculty-directory/brittany-green-phd/) for recording the lab videos. 
 
 
 ## Lecture and Lab Notes
