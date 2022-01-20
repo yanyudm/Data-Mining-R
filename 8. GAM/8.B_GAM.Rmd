@@ -17,7 +17,7 @@ editor_options:
 
 There are two common implementations of GAMs in R.  The older version (originally made for S-PLUS) is available as the 'gam' package by Hastie and Tibshirani.  The newer version that we will use below is the 'mgcv' package from Simon Wood. The basic modeling procedure for both packages is similar (the function is gam for both; be wary of having both libraries loaded at the same time), but the behind-the-scenes computational approaches differ, as do the arguments for optimization and the model output. Expect the results to be slightly different when used with the same model structure on the same dataset.
 
-## GAM on Boston Housing dataset
+## GAM on Boston Housing Case for Regression
 
 ```{r echo=TRUE, message = FALSE,warning=FALSE, results='hide'}
 library(MASS)
@@ -76,116 +76,12 @@ mean((pi.out - Boston_test$medv)^2)
 
 [go to top](#header)
 
+## GAM on Credit Card Default Data for Classification
 
-## GAM on Bankruptcy dataset
-
-```{r echo=TRUE, message = FALSE,warning=FALSE, results='hide'}
-Bank_data <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/bankruptcy.csv", header=T)
-# summary(Bank_data)
-
-sample_index <- sample(nrow(Bank_data),nrow(Bank_data)*0.70)
-Bank_train <- Bank_data[sample_index,]
-Bank_test <- Bank_data[-sample_index,]
-```
-
-<kbd>![Bankruptcy Variable Description](pic/BankruptcyVarDesp.pdf){width=900px height=720px} </kbd>
-<!-- <kbd> <img src="pic/BankruptcyVarDesp.pdf" alt="Bankruptcy Variable Description"  width="480px" height="480px"> </kbd> -->
-<!-- <img src="path/to/image" height="400px" width="300px" /> -->
-
-<!-- # ```{r tutor, out.width = '100%', out.height='100%', out.align = 'right', fig.cap='', eval=TRUE} -->
-<!-- # # knitr::include_graphics("pic/BankruptcyVarDesp.pdf") -->
-<!-- # ``` -->
-
-**Model and plots**
-
-```{r echo=TRUE, message = FALSE, warning=FALSE}
-Bank_gam <- gam(DLRSN ~ s(R1)+s(R2)+s(R3)+s(R4)+
-                  s(R5)+s(R6)+s(R7)+s(R8)+s(R9)+s(R10), data=Bank_train)
-
-summary(Bank_gam)
-```
-
-```{r echo=TRUE, message = FALSE, warning=FALSE, out.width="100%", out.height="100%"}
-plot(Bank_gam, pages=1)
-```
-
-**In-sample fit performance**
-
-The in-sample confusion matrix:
-```{r}
-pcut_gam <- 1/36
-prob_gam_in <-predict(Bank_gam, Bank_train, type="response")
-pred_gam_in <- (prob_gam_in>=pcut_gam)*1
-table(Bank_train$DLRSN, pred_gam_in, dnn=c("Observed","Predicted"))
-```
-
-The in-sample asymmetric cost is another thing you can check:
-
-```{r}
-bankcost <- function(r, pi){
-  weight1 = 35
-  weight0 = 1
-  pcut <- weight0/(weight0+weight1)
-  c1 = (r==1)&(pi<pcut) #logical vector - true if actual 1 but predict 0
-  c0 = (r==0)&(pi>pcut) #logical vector - true if actual 0 but predict 1
-  return(mean(weight1*c1+weight0*c0))
-}
-bankcost(Bank_train$DLRSN, pred_gam_in)
-```
-
-**ROC Curve:**
-```{r, message=FALSE, warning=FALSE, fig.width=6, fig.height=5, fig.align='center'}
-library(ROCR)
-pred <- prediction(c(prob_gam_in), Bank_train$DLRSN)
-perf <- performance(pred, "tpr", "fpr")
-plot(perf, colorize=TRUE)
-#Get the AUC
-unlist(slot(performance(pred, "auc"), "y.values"))
-```
-
-
-**Model AIC/BIC and mean residual deviance**
-
-```{r}
-AIC(Bank_gam)
-BIC(Bank_gam)
-
-#in-sample mean residual deviance using df 
-Bank_gam$dev/Bank_gam$df.residual 
-```
-
-**Out-of-sample fit performance**
-
-The out-of-sample confusion matrix:
-```{r}
-prob_gam_out <- predict(Bank_gam, Bank_test, type="response")
-pred_gam_out <- (prob_gam_out>=pcut_gam)*1
-table(Bank_test$DLRSN, pred_gam_out, dnn=c("Observed","Predicted"))
-```
-
-**The asymmetric cost is:**
-```{r}
-bankcost(Bank_test$DLRSN, pred_gam_out)
-```
-
-**ROC Curve:**
-```{r, message=FALSE, warning=FALSE, fig.width=6, fig.height=5, fig.align='center'}
-pred <- prediction(c(prob_gam_out), Bank_test$DLRSN)
-perf <- performance(pred, "tpr", "fpr")
-plot(perf, colorize=TRUE)
-#Get the AUC
-unlist(slot(performance(pred, "auc"), "y.values"))
-```
-
-[go to top](#header)
-
-
-## GAM on Credit Card Default Data
-
-The Credit Card Default Data has 10800 observations and 23 predictive variables. The details of the data can be found at http://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients. Think about what kind of factors could affect people to fail to pay their credit balance.
+This Credit Card Default Data for Lab has 12000 observations, 23 predictive variables, and one binary response. It is a subsample of the data at http://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients (30000 observations). You may use the original data. Think about what kind of factors could affect people to fail to pay their credit balance.
 
 ```{r , message=FALSE}
-credit_data <- read.csv(file = "https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
+credit_data <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
 
 # rename
 library(dplyr)
@@ -204,7 +100,9 @@ credit_train = credit_data[index,]
 credit_test = credit_data[-index,]
 ```
 
-Some of these predictors are categorical variables and they will enter the `gam()` model as partially linear terms. We only add flexible `s()` function to those continuous predictor variables such as LIMIT_BAL, AGE etc. Here we will demonstrate using five continuous variables as smooth terms and three categorical variables SEX, EDUCATION, and MARRIAGE as partially linear terms to save the space of summary output.
+Some of these predictors are categorical variables and they will enter the `gam()` model as partially linear terms. We only add flexible `s()` function to those continuous predictor variables such as LIMIT_BAL, AGE etc. that may exhibit nonlinearity. Here we will demonstrate using five continuous variables as smooth terms and three categorical variables SEX, EDUCATION, and MARRIAGE as partially linear terms to save the space of summary output.
+
+For classification with binary response, family = binomial is used.
 
 ```{r echo=TRUE, message = FALSE, warning=FALSE, out.width="100%", out.height="100%"}
 ## Create a formula for a model with a large number of variables:
@@ -224,7 +122,7 @@ vis.gam(credit_gam, view=c("LIMIT_BAL","AGE"), theta= 140) # different view
 
 ### In-sample fit performance
 
-In order to see the in-sample fit performance, you may look into the confusion matrix by using commands as following. We assume the cut-off probability as 1/6. 
+In order to see the in-sample fit performance, you may look into the confusion matrix by using commands as following. We assume the cut-off probability as 1/(5+1) for 5:1 asymmetric cost ratio.
 
 ```{r}
 pcut_gam <- 1/6
@@ -264,39 +162,6 @@ plot(perf, colorize=TRUE)
 #Get the AUC
 unlist(slot(performance(pred, "auc"), "y.values"))
 ```
-
-<!-- ### Search for optimal cut-off probability -->
-
-<!-- The following code does a grid search from pcut = 0.01 to pcut = 0.99 with the objective of minimizing overall cost in the training set. I am using an asymmetric cost function by assuming that giving out a bad loan cost 10 time as much as rejecting application from someone who can pay. -->
-
-```{r eval=FALSE, echo=FALSE, message = FALSE, warning=FALSE, out.width="100%", out.height="100%"}
-#define the searc grid from 0.01 to 0.20
-searchgrid = seq(0.01, 0.20, 0.01)
-#result_gam is a 99x2 matrix, the 1st col stores the cut-off p, the 2nd column stores the cost
-result_gam = cbind(searchgrid, NA)
-#in the cost function, both r and pi are vectors, r=Observed, pi=predicted probability
-cost1 <- function(r, pi){
-  weight1 = 5
-  weight0 = 1
-  c1 = (r==1)&(pi<pcut) #logical vector - true if actual 1 but predict 0
-  c0 = (r==0)&(pi>pcut) #logical vector - true if actual 0 but predict 1
-  return(mean(weight1*c1+weight0*c0))
-}
-
-for(i in 1:length(searchgrid))
-{
-  pcut <- result_gam[i,1]
-  #assign the cost to the 2nd col
-  result_gam[i,2] <- cost1(credit_train$default, predict(credit_gam,type="response"))
-}
-# plot(result_gam, ylab="Cost in Training Set")
-# index_min <- which.min(result_gam[,2])#find the index of minimum value
-# result_gam[index_min,2] #min cost
-# result_gam[index_min,1] #optimal cutoff probability
-# pcut <-  result_gam[index_min,1]
-
-```
-
 ### Out-of-sample fit performance
 ```{r}
 pcut <- 1/6
