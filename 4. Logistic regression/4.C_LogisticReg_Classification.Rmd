@@ -16,7 +16,7 @@ editor_options:
 
 # Objective
 
-The objective of this case is to get you understand logistic regression (binary classification) and some important ideas such as cross validation, ROC curve, cut-off probability. 
+The objective of this case is to get you understand logistic regression (binary classification) and some important ideas such as cut-off probability, symmetric and asymmetric misclassification rates (cost), which are important as an input argument for cross validation. 
 
 # Credit Card Default Data
 
@@ -25,7 +25,7 @@ Think about what kind of factors could affect people to fail to pay their credit
 
 We first load the credit scoring data. It is easy to load comma-separated values (CSV). 
 ```{r}
-credit_data <- read.csv(file = "https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
+credit_data <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
 ```
 
 Look at what information do we have.
@@ -94,75 +94,36 @@ table(credit_train$default, (pred_glm0_train > 0.2)*1, dnn=c("Truth","Predicted"
 table(credit_train$default, (pred_glm0_train > 0.0001)*1, dnn=c("Truth","Predicted"))
 ```
 
-Therefore, determine the optimal cut-off probability is crucial. The simplest way to determine the cut-off is to use the proportion of "1" in the original data. We will intriduce a more appropriate way to determine the optimal p-cut.
-
 ## Asymmetric cost
 
 In the case of giving loan to someone, the cost function can indicate the trade off between the risk of giving loan to someone who cannot pay (predict 0, truth 1), and risk of rejecting someone who qualifies (predict 1, truth 0). Given different business situation, one may need to have asymmetric costs for false positive and false negative. Meanwhile, when you want a binary classification decision rule, you need to choose different cut-off probability. Choosing a large cut-off probability will result in few cases being predicted as 1, and choosing a small cut-off probability will result in many cases being predicted as 1. 
 
-1. The symmetric cost function and asymmetric cost function with 5:1 cost ratio:
+1. Symmetric cost function (misclassification rate) with 1:1 cost ratio, or equivalently pcut=1/2. This is not very appropriate for cases such as Credit Card Default:
 
 ```{r}
-#Symmetric cost
-cost1 <- function(r, pi, pcut){
+#Symmetric cost and equivalently pcut=1/2 
+cost1 <- function(r, pi){
+  pcut <- 1/2 #equivalant 1:1 symmetric cost ratio
   mean(((r==0)&(pi>pcut)) | ((r==1)&(pi<pcut)))
 }
-
-#Asymmetric cost
-cost2 <- function(r, pi, pcut){
-  weight1 <- 5
-  weight0 <- 1
-  c1 <- (r==1)&(pi<pcut) #logical vector - true if actual 1 but predict 0
-  c0 <-(r==0)&(pi>pcut) #logical vector - true if actual 0 but predict 1
-  return(mean(weight1*c1+weight0*c0))
-}
+cost1(r = credit_train$default, pi = pred_glm0_train)
 ```
+
+2. Asymmetric cost function (misclassification rate) with 5:1 cost ratio, and equivalently pcut=1/(5+1).This is more appropriate for cases such as Credit Card Default:
 
 ```{r}
-pcut <- 1/(5+1)
-#Symmetric cost
-cost1(r = credit_train$default, pi = pred_glm0_train, pcut)
+costfunc  <- function(r, pi){
+    weight1 <- 5   # define the weight for "true=1 but pred=0" (FN)
+    weight0 <- 1    # define the weight for "true=0 but pred=1" (FP)
+    pcut <- 1/(1+weight1/weight0)  # equivalant 5:1 asymmetric cost ratio
+    c1 <- (r==1)&(pi < pcut)    # count for "true=1 but pred=0" (FN)
+    c0 <- (r==0)&(pi >= pcut)   # count for "true=0 but pred=1" (FP)
+    cost <- mean(weight1*c1 + weight0*c0)  # misclassification with weight
+    return(cost) # you have to return to a value when you write R functions
+} # end 
 
 #Asymmetric cost
-cost2(r = credit_train$default, pi = pred_glm0_train, pcut)
-```
-
-2. (Optional) Symmetric cost and asymmetric cost with different cut-off probability:
-
-```{r}
-pcuts <- costs1 <- costs2 <- matrix(c(0.9,0.5,0.2,0.0001), nrow = 4, ncol = 1)
-
-costs1[] <- vapply(X = pcuts, FUN = cost1, FUN.VALUE = numeric(1), 
-                   r = credit_train$default, pi = pred_glm0_train)
-costs2[] <- vapply(X = pcuts, FUN = cost2, FUN.VALUE = numeric(1), 
-                   r = credit_train$default, pi = pred_glm0_train)
-
-All_costs <- as.matrix(cbind(costs1, costs2))
-dimnames(All_costs) <- list(c(0.9,0.5,0.2,0.0001), c("Symm cost", "Asym cost"))
-All_costs
-```
-
-```{r, echo=FALSE, eval=FALSE}
-
-<!-- #### **Exercise 1:**  -->
-
-<!-- > 1. Change the weights to different values, and see how your optimal cut-off changes. -->
-<!-- > 2. obtain confusion matrix and calculate the (asymmetric) cost based on the optimal cut-off.  -->
-<!-- > 3. Find optimal cut-off probability using symmetric cost.  -->
-<!-- > 4. Calculate MR and cost, what do you find? -->
-<!-- > 5. Further, rewrite the cost function to make the weights (or the ratio of two weights) as input parameter. -->
-<!-- <!-- > 6. Use F-score to determine the optimal cut-off. --> -->
-
-<!-- ### Out-of-sample Classification -->
-
-<!-- Everything you have done about classification so far is for training sample. Now let's get to testing sample. Keep in mind the principle, **testing sample is only used for evaluating your model's prediction accuracy**! NO NEED TO CHOOSE CUT-OFF PROBABILITY in this stage. -->
-
-<!-- #### **Exercise 2:**  -->
-
-<!-- > 1. Calculate MR, FPR, FNR based on the optimal cut-off you get from training sample with weights (5:1) -->
-<!-- > 2. Calculate asymetric cost based on the optimal cut-off you get from training sample with weights (5:1) -->
-<!-- > 3. Calculate above statistics based on the cut-off you get from training sample with symmetric weights (1:1)  -->
-
+costfunc(r = credit_train$default, pi = pred_glm0_train)
 ```
 
 # Summary
@@ -171,33 +132,10 @@ All_costs
 
 * Know how to use glm() to build logistic regression;
 
-* Know how to get ROC and AUC based on predicted probability;
-
-* Know how to get PR curve and AUC based on predicted probability;
-
 * Know how to do binary classification, and calculation of MR, FPR, FNR, and cost;
 
-* Know how to use LASSO for logistic regression
 
-## Guide for Assignment
 
-* EDA
-
-* Train logistic model
-
-* Prediction (ROC, AUC; PR, AUC)
-
-* Model comparison using AUC
-
-* Find optimal cut-off based on training sample
-
-* Classification -- Obtain the confusion matrix and calculate the MR, asymmetric cost, FPR, Precision, and Recall.
-
-* Build new models by Variable Selection 
-
-* Calculate all criteria
-
-* Comprehensive comparison
 
 [go to top](#header)
 
