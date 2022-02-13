@@ -240,7 +240,6 @@ summary(credit_glm0)</code></pre>
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-<<<<<<< HEAD
 ## -3.1710  -0.6946  -0.5357  -0.2781   3.0383  
 ## 
 ## Coefficients:
@@ -272,53 +271,14 @@ summary(credit_glm0)</code></pre>
 ## PAY_AMT4    -3.610e-06  2.867e-06  -1.259 0.207952    
 ## PAY_AMT5     9.029e-07  2.730e-06   0.331 0.740865    
 ## PAY_AMT6    -1.663e-06  2.061e-06  -0.807 0.419786    
-=======
-## -3.2117  -0.6987  -0.5331  -0.2650   3.3692  
-## 
-## Coefficients:
-##               Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept) -9.140e-01  1.553e-01  -5.887 3.92e-09 ***
-## LIMIT_BAL   -8.153e-07  2.859e-07  -2.852 0.004351 ** 
-## SEX2        -1.193e-01  5.489e-02  -2.173 0.029770 *  
-## EDUCATION2  -1.202e-01  6.325e-02  -1.900 0.057481 .  
-## EDUCATION3  -2.324e-01  8.621e-02  -2.695 0.007038 ** 
-## EDUCATION4  -1.462e+00  3.491e-01  -4.186 2.84e-05 ***
-## MARRIAGE2   -1.942e-01  6.189e-02  -3.138 0.001703 ** 
-## MARRIAGE3   -1.177e-01  2.354e-01  -0.500 0.616992    
-## AGE          4.450e-03  3.354e-03   1.327 0.184611    
-## PAY_0        6.168e-01  3.183e-02  19.380  &lt; 2e-16 ***
-## PAY_2        5.870e-02  3.616e-02   1.624 0.104469    
-## PAY_3        5.445e-02  4.029e-02   1.351 0.176596    
-## PAY_4        6.124e-02  4.490e-02   1.364 0.172538    
-## PAY_5        1.724e-02  4.807e-02   0.359 0.719887    
-## PAY_6        2.851e-02  3.993e-02   0.714 0.475163    
-## BILL_AMT1   -5.507e-06  2.052e-06  -2.683 0.007287 ** 
-## BILL_AMT2    3.799e-06  2.656e-06   1.430 0.152657    
-## BILL_AMT3    9.908e-07  2.260e-06   0.438 0.661036    
-## BILL_AMT4   -4.506e-06  2.582e-06  -1.745 0.080982 .  
-## BILL_AMT5    6.169e-06  2.765e-06   2.231 0.025660 *  
-## BILL_AMT6   -1.419e-06  2.150e-06  -0.660 0.509128    
-## PAY_AMT1    -1.358e-05  4.090e-06  -3.321 0.000896 ***
-## PAY_AMT2    -6.135e-06  3.262e-06  -1.881 0.059992 .  
-## PAY_AMT3    -3.595e-06  3.462e-06  -1.038 0.299202    
-## PAY_AMT4    -9.089e-06  3.453e-06  -2.632 0.008482 ** 
-## PAY_AMT5    -2.183e-06  3.384e-06  -0.645 0.518961    
-## PAY_AMT6    -5.335e-06  2.413e-06  -2.211 0.027039 *  
->>>>>>> cc5d310e7a195c7f6c1586445ab8f438b6ed7548
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-<<<<<<< HEAD
 ##     Null deviance: 10081.1  on 9599  degrees of freedom
 ## Residual deviance:  8778.2  on 9573  degrees of freedom
 ## AIC: 8832.2
-=======
-##     Null deviance: 10083.6  on 9599  degrees of freedom
-## Residual deviance:  8755.6  on 9573  degrees of freedom
-## AIC: 8809.6
->>>>>>> cc5d310e7a195c7f6c1586445ab8f438b6ed7548
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
 <p>You have seen <code>glm()</code> before. In this lab, this is the main function used to build logistic regression model because it is a member of generalized linear model. In <code>glm()</code>, the only thing new is <code>family</code>. It specifies the distribution of your response variable. You may also specify the link function after the name of distribution, for example, <code>family=binomial(logit)</code> (default link is logit). You can also specify <code>family=binomial(link = &quot;probit&quot;)</code> to run probit regression. You may also use <code>glm()</code> to build many other generalized linear models.</p>
@@ -332,7 +292,6 @@ summary(credit_glm0)</code></pre>
 table(credit_train$default, (pred_glm0_train &gt; 0.9)*1, dnn=c(&quot;Truth&quot;,&quot;Predicted&quot;))</code></pre>
 <pre><code>##      Predicted
 ## Truth    0    1
-<<<<<<< HEAD
 ##     0 7490   12
 ##     1 2086   12</code></pre>
 <pre class="r"><code>table(credit_train$default, (pred_glm0_train &gt; 0.5)*1, dnn=c(&quot;Truth&quot;,&quot;Predicted&quot;))</code></pre>
@@ -350,42 +309,16 @@ table(credit_train$default, (pred_glm0_train &gt; 0.9)*1, dnn=c(&quot;Truth&quot
 ## Truth    0    1
 ##     0    1 7501
 ##     1    0 2098</code></pre>
-=======
-##     0 7491   10
-##     1 2085   14</code></pre>
-<pre class="r"><code>table(credit_train$default, (pred_glm0_train &gt; 0.5)*1, dnn=c(&quot;Truth&quot;,&quot;Predicted&quot;))</code></pre>
-<pre><code>##      Predicted
-## Truth    0    1
-##     0 7297  204
-##     1 1539  560</code></pre>
-<pre class="r"><code>table(credit_train$default, (pred_glm0_train &gt; 0.2)*1, dnn=c(&quot;Truth&quot;,&quot;Predicted&quot;))</code></pre>
-<pre><code>##      Predicted
-## Truth    0    1
-##     0 4507 2994
-##     1  607 1492</code></pre>
-<pre class="r"><code>table(credit_train$default, (pred_glm0_train &gt; 0.0001)*1, dnn=c(&quot;Truth&quot;,&quot;Predicted&quot;))</code></pre>
-<pre><code>##      Predicted
-## Truth    0    1
-##     0    1 7500
-##     1    0 2099</code></pre>
->>>>>>> cc5d310e7a195c7f6c1586445ab8f438b6ed7548
 </div>
 <div id="asymmetric-cost" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> Asymmetric cost</h2>
 <p>In the case of giving loan to someone, the cost function can indicate the trade off between the risk of giving loan to someone who cannot pay (predict 0, truth 1), and risk of rejecting someone who qualifies (predict 1, truth 0). Given different business situation, one may need to have asymmetric costs for false positive and false negative. Meanwhile, when you want a binary classification decision rule, you need to choose different cut-off probability. Choosing a large cut-off probability will result in few cases being predicted as 1, and choosing a small cut-off probability will result in many cases being predicted as 1.</p>
 <ol style="list-style-type: decimal">
-<<<<<<< HEAD
 <li>Symmetric cost function (misclassification rate) with 1:1 cost ratio, or equivalently pcut=1/2. This is not very appropriate for cases such as Credit Card Default:</li>
 </ol>
-<pre class="r"><code>#Symmetric cost and equivalently pcut=1/2 
+<pre class="r"><code>#Symmetric cost (1:1) and equivalently pcut=1/2 
 cost1 &lt;- function(r, pi){
   pcut &lt;- 1/2 #equivalant 1:1 symmetric cost ratio
-=======
-<li>Symmetric cost function (misclassification rate) with 1:1 cost ration, or equivalently pcut=1/2. This is not very appropriate for cases such as Credit Card default.</li>
-</ol>
-<pre class="r"><code>#Symmetric cost, with pcut in the function input argument
-cost1 &lt;- function(r, pi, pcut){
->>>>>>> cc5d310e7a195c7f6c1586445ab8f438b6ed7548
   mean(((r==0)&amp;(pi&gt;pcut)) | ((r==1)&amp;(pi&lt;pcut)))
 }
 cost1(r = credit_train$default, pi = pred_glm0_train)</code></pre>
@@ -393,54 +326,18 @@ cost1(r = credit_train$default, pi = pred_glm0_train)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Asymmetric cost function (misclassification rate) with 5:1 cost ratio, and equivalently pcut=1/(5+1).This is more appropriate for cases such as Credit Card Default:</li>
 </ol>
-<pre class="r"><code>costfunc  &lt;- function(r, pi){
+<pre class="r"><code>#Asymmetric cost (5:1) and equivalently pcut=1/(5+1) 
+costfunc  &lt;- function(r, pi){
     weight1 &lt;- 5   # define the weight for &quot;true=1 but pred=0&quot; (FN)
     weight0 &lt;- 1    # define the weight for &quot;true=0 but pred=1&quot; (FP)
-    pcut &lt;- 1/(1+weight1/weight0)  # equivalant 5:1 asymmetric cost ratio
+    pcut &lt;- 1/(1+weight1/weight0)  # equivalent 5:1 asymmetric cost ratio
     c1 &lt;- (r==1)&amp;(pi &lt; pcut)    # count for &quot;true=1 but pred=0&quot; (FN)
     c0 &lt;- (r==0)&amp;(pi &gt;= pcut)   # count for &quot;true=0 but pred=1&quot; (FP)
     cost &lt;- mean(weight1*c1 + weight0*c0)  # misclassification with weight
     return(cost) # you have to return to a value when you write R functions
 } # end 
-
-<<<<<<< HEAD
-#Asymmetric cost
 costfunc(r = credit_train$default, pi = pred_glm0_train)</code></pre>
 <pre><code>## [1] 0.6605208</code></pre>
-=======
-#Symmetric cost, with pcut NOT in the function input argument
-pcut &lt;- 1/2 #prespecify pcut value
-cost1 &lt;- function(r, pi){
-  mean(((r==0)&amp;(pi&gt;pcut)) | ((r==1)&amp;(pi&lt;pcut)))
-}</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Asymmetric cost function (misclassification rate) with 5:1 cost ration, or equivalently pcut=1/(5+1).</li>
-</ol>
-<pre class="r"><code>#Asymmetric cost, with pcut in the function input argument
-cost2 &lt;- function(r, pi, pcut){
-  weight1 &lt;- 5
-  weight0 &lt;- 1
-  c1 &lt;- (r==1)&amp;(pi&lt;pcut) #logical vector - true if actual 1 but predict 0
-  c0 &lt;-(r==0)&amp;(pi&gt;pcut) #logical vector - true if actual 0 but predict 1
-  return(mean(weight1*c1+weight0*c0))
-}
-
-#Asymmetric cost, with pcut NOT in the function input argument (This will be used for cross validation for Credit Card default case.)
-pcut &lt;- 1/(5+1) #prespecify pcut value, cost ratio 5:1
-cost2 &lt;- function(r, pi){
-  weight1 &lt;- 5
-  weight0 &lt;- 1
-  c1 &lt;- (r==1)&amp;(pi&lt;pcut) #logical vector - true if actual 1 but predict 0
-  c0 &lt;-(r==0)&amp;(pi&gt;pcut) #logical vector - true if actual 0 but predict 1
-  return(mean(weight1*c1+weight0*c0))
-}</code></pre>
-<pre class="r"><code>#Symmetric cost
-cost1(r = credit_train$default, pi = pred_glm0_train)</code></pre>
-<pre><code>## [1] 0.4659375</code></pre>
-<pre class="r"><code>#Asymmetric cost
-cost2(r = credit_train$default, pi = pred_glm0_train)</code></pre>
-<pre><code>## [1] 0.6701042</code></pre>
->>>>>>> cc5d310e7a195c7f6c1586445ab8f438b6ed7548
 </div>
 </div>
 <div id="summary" class="section level1" number="4">
@@ -449,11 +346,7 @@ cost2(r = credit_train$default, pi = pred_glm0_train)</code></pre>
 <h2><span class="header-section-number">4.1</span> Things to remember</h2>
 <ul>
 <li><p>Know how to use glm() to build logistic regression;</p></li>
-<<<<<<< HEAD
-<li><p>Know how to do binary classification, and calculation of MR, FPR, FNR, and cost;</p></li>
-=======
 <li><p>Know how to do binary classification, and calculation of MR, FPR, FNR, and (asymmetric) cost;</p></li>
->>>>>>> cc5d310e7a195c7f6c1586445ab8f438b6ed7548
 </ul>
 <p><a href="#header">go to top</a></p>
 </div>

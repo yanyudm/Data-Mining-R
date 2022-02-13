@@ -99,79 +99,32 @@ table(credit_train$default, (pred_glm0_train > 0.0001)*1, dnn=c("Truth","Predict
 
 In the case of giving loan to someone, the cost function can indicate the trade off between the risk of giving loan to someone who cannot pay (predict 0, truth 1), and risk of rejecting someone who qualifies (predict 1, truth 0). Given different business situation, one may need to have asymmetric costs for false positive and false negative. Meanwhile, when you want a binary classification decision rule, you need to choose different cut-off probability. Choosing a large cut-off probability will result in few cases being predicted as 1, and choosing a small cut-off probability will result in many cases being predicted as 1. 
 
-<<<<<<< HEAD
 1. Symmetric cost function (misclassification rate) with 1:1 cost ratio, or equivalently pcut=1/2. This is not very appropriate for cases such as Credit Card Default:
 
 ```{r}
-#Symmetric cost and equivalently pcut=1/2 
+#Symmetric cost (1:1) and equivalently pcut=1/2 
 cost1 <- function(r, pi){
   pcut <- 1/2 #equivalant 1:1 symmetric cost ratio
   mean(((r==0)&(pi>pcut)) | ((r==1)&(pi<pcut)))
 }
 cost1(r = credit_train$default, pi = pred_glm0_train)
-=======
-1. Symmetric cost function (misclassification rate) with 1:1 cost ration, or equivalently pcut=1/2. This is not very appropriate for cases such as Credit Card default.  
-
-```{r}
-#Symmetric cost, with pcut in the function input argument
-cost1 <- function(r, pi, pcut){
-  mean(((r==0)&(pi>pcut)) | ((r==1)&(pi<pcut)))
-}
-
-#Symmetric cost, with pcut NOT in the function input argument
-pcut <- 1/2 #prespecify pcut value
-cost1 <- function(r, pi){
-  mean(((r==0)&(pi>pcut)) | ((r==1)&(pi<pcut)))
-}
-```
-2. Asymmetric cost function (misclassification rate) with 5:1 cost ration, or equivalently pcut=1/(5+1).
-
-```{r}
-#Asymmetric cost, with pcut in the function input argument
-cost2 <- function(r, pi, pcut){
-  weight1 <- 5
-  weight0 <- 1
-  c1 <- (r==1)&(pi<pcut) #logical vector - true if actual 1 but predict 0
-  c0 <-(r==0)&(pi>pcut) #logical vector - true if actual 0 but predict 1
-  return(mean(weight1*c1+weight0*c0))
-}
-
-#Asymmetric cost, with pcut NOT in the function input argument (This will be used for cross validation for Credit Card default case.)
-pcut <- 1/(5+1) #prespecify pcut value, cost ratio 5:1
-cost2 <- function(r, pi){
-  weight1 <- 5
-  weight0 <- 1
-  c1 <- (r==1)&(pi<pcut) #logical vector - true if actual 1 but predict 0
-  c0 <-(r==0)&(pi>pcut) #logical vector - true if actual 0 but predict 1
-  return(mean(weight1*c1+weight0*c0))
-}
->>>>>>> cc5d310e7a195c7f6c1586445ab8f438b6ed7548
 ```
 
 2. Asymmetric cost function (misclassification rate) with 5:1 cost ratio, and equivalently pcut=1/(5+1).This is more appropriate for cases such as Credit Card Default:
 
 ```{r}
-<<<<<<< HEAD
+#Asymmetric cost (5:1) and equivalently pcut=1/(5+1) 
 costfunc  <- function(r, pi){
     weight1 <- 5   # define the weight for "true=1 but pred=0" (FN)
     weight0 <- 1    # define the weight for "true=0 but pred=1" (FP)
-    pcut <- 1/(1+weight1/weight0)  # equivalant 5:1 asymmetric cost ratio
+    pcut <- 1/(1+weight1/weight0)  # equivalent 5:1 asymmetric cost ratio
     c1 <- (r==1)&(pi < pcut)    # count for "true=1 but pred=0" (FN)
     c0 <- (r==0)&(pi >= pcut)   # count for "true=0 but pred=1" (FP)
     cost <- mean(weight1*c1 + weight0*c0)  # misclassification with weight
     return(cost) # you have to return to a value when you write R functions
 } # end 
-
-#Asymmetric cost
 costfunc(r = credit_train$default, pi = pred_glm0_train)
-=======
 
-#Symmetric cost
-cost1(r = credit_train$default, pi = pred_glm0_train)
-
-#Asymmetric cost
-cost2(r = credit_train$default, pi = pred_glm0_train)
->>>>>>> cc5d310e7a195c7f6c1586445ab8f438b6ed7548
 ```
 
 # Summary
@@ -180,14 +133,7 @@ cost2(r = credit_train$default, pi = pred_glm0_train)
 
 * Know how to use glm() to build logistic regression;
 
-<<<<<<< HEAD
-* Know how to do binary classification, and calculation of MR, FPR, FNR, and cost;
-
-
-
-=======
 * Know how to do binary classification, and calculation of MR, FPR, FNR, and (asymmetric) cost;
->>>>>>> cc5d310e7a195c7f6c1586445ab8f438b6ed7548
 
 [go to top](#header)
 
