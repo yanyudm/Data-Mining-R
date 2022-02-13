@@ -66,6 +66,7 @@ credit_data$MARRIAGE<- as.factor(credit_data$MARRIAGE)
 
 Randomly split the data to training (80%) and testing (20%) datasets:
 ```{r}
+set.seed(1234)
 index <- sample(nrow(credit_data),nrow(credit_data)*0.80)
 credit_train = credit_data[index,]
 credit_test = credit_data[-index,]

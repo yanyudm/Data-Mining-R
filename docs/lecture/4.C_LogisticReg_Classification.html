@@ -226,7 +226,8 @@ credit_data$MARRIAGE&lt;- as.factor(credit_data$MARRIAGE)</code></pre>
 <div id="logistic-regression" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Logistic Regression</h1>
 <p>Randomly split the data to training (80%) and testing (20%) datasets:</p>
-<pre class="r"><code>index &lt;- sample(nrow(credit_data),nrow(credit_data)*0.80)
+<pre class="r"><code>set.seed(1234)
+index &lt;- sample(nrow(credit_data),nrow(credit_data)*0.80)
 credit_train = credit_data[index,]
 credit_test = credit_data[-index,]</code></pre>
 <div id="train-a-logistic-regression-model-with-all-variables" class="section level2" number="3.1">
@@ -239,45 +240,45 @@ summary(credit_glm0)</code></pre>
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -3.1460  -0.6988  -0.5329  -0.2693   3.1827  
+## -3.1710  -0.6946  -0.5357  -0.2781   3.0383  
 ## 
 ## Coefficients:
 ##               Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept) -9.626e-01  1.544e-01  -6.234 4.54e-10 ***
-## LIMIT_BAL   -9.566e-07  2.863e-07  -3.341 0.000835 ***
-## SEX2        -1.751e-01  5.454e-02  -3.211 0.001323 ** 
-## EDUCATION2  -1.605e-01  6.338e-02  -2.532 0.011350 *  
-## EDUCATION3  -1.840e-01  8.477e-02  -2.170 0.029991 *  
-## EDUCATION4  -1.364e+00  3.501e-01  -3.895 9.81e-05 ***
-## MARRIAGE2   -1.377e-01  6.205e-02  -2.220 0.026430 *  
-## MARRIAGE3    4.202e-03  2.286e-01   0.018 0.985336    
-## AGE          6.445e-03  3.325e-03   1.939 0.052546 .  
-## PAY_0        6.154e-01  3.147e-02  19.553  &lt; 2e-16 ***
-## PAY_2        9.590e-02  3.596e-02   2.667 0.007660 ** 
-## PAY_3        3.542e-02  4.045e-02   0.876 0.381276    
-## PAY_4        2.928e-02  4.509e-02   0.649 0.516140    
-## PAY_5        6.221e-02  4.783e-02   1.300 0.193431    
-## PAY_6       -1.900e-02  4.021e-02  -0.472 0.636617    
-## BILL_AMT1   -6.464e-06  2.107e-06  -3.069 0.002150 ** 
-## BILL_AMT2    4.904e-06  2.697e-06   1.818 0.069004 .  
-## BILL_AMT3    1.714e-06  2.242e-06   0.765 0.444535    
-## BILL_AMT4   -4.765e-06  2.447e-06  -1.947 0.051525 .  
-## BILL_AMT5    5.272e-06  2.714e-06   1.942 0.052123 .  
-## BILL_AMT6   -1.174e-06  2.132e-06  -0.551 0.581778    
-## PAY_AMT1    -1.110e-05  3.604e-06  -3.080 0.002069 ** 
-## PAY_AMT2    -6.966e-06  3.250e-06  -2.143 0.032074 *  
-## PAY_AMT3    -2.255e-06  3.155e-06  -0.715 0.474776    
-## PAY_AMT4    -5.907e-06  3.082e-06  -1.916 0.055335 .  
-## PAY_AMT5    -3.089e-06  3.305e-06  -0.935 0.349981    
-## PAY_AMT6    -6.464e-06  2.492e-06  -2.593 0.009504 ** 
+## (Intercept) -9.416e-01  1.551e-01  -6.073 1.26e-09 ***
+## LIMIT_BAL   -1.117e-06  2.855e-07  -3.911 9.19e-05 ***
+## SEX2        -1.953e-01  5.463e-02  -3.575 0.000350 ***
+## EDUCATION2  -1.316e-01  6.325e-02  -2.081 0.037479 *  
+## EDUCATION3  -2.096e-01  8.563e-02  -2.448 0.014366 *  
+## EDUCATION4  -1.305e+00  3.481e-01  -3.749 0.000178 ***
+## MARRIAGE2   -1.398e-01  6.210e-02  -2.251 0.024412 *  
+## MARRIAGE3   -1.504e-01  2.494e-01  -0.603 0.546677    
+## AGE          5.560e-03  3.360e-03   1.655 0.097992 .  
+## PAY_0        5.903e-01  3.189e-02  18.512  &lt; 2e-16 ***
+## PAY_2        5.904e-02  3.626e-02   1.628 0.103448    
+## PAY_3        8.675e-02  4.028e-02   2.154 0.031256 *  
+## PAY_4        1.099e-02  4.488e-02   0.245 0.806608    
+## PAY_5        1.084e-01  4.760e-02   2.276 0.022834 *  
+## PAY_6       -1.973e-02  4.036e-02  -0.489 0.624931    
+## BILL_AMT1   -5.118e-06  1.959e-06  -2.613 0.008977 ** 
+## BILL_AMT2    3.261e-06  2.558e-06   1.275 0.202421    
+## BILL_AMT3   -3.360e-08  2.291e-06  -0.015 0.988295    
+## BILL_AMT4   -2.876e-06  2.508e-06  -1.147 0.251481    
+## BILL_AMT5    5.405e-06  2.654e-06   2.037 0.041681 *  
+## BILL_AMT6   -1.356e-06  2.006e-06  -0.676 0.499098    
+## PAY_AMT1    -9.106e-06  3.296e-06  -2.763 0.005732 ** 
+## PAY_AMT2    -5.865e-06  3.169e-06  -1.851 0.064228 .  
+## PAY_AMT3    -4.332e-06  3.297e-06  -1.314 0.188964    
+## PAY_AMT4    -3.610e-06  2.867e-06  -1.259 0.207952    
+## PAY_AMT5     9.029e-07  2.730e-06   0.331 0.740865    
+## PAY_AMT6    -1.663e-06  2.061e-06  -0.807 0.419786    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 10131.8  on 9599  degrees of freedom
-## Residual deviance:  8807.1  on 9573  degrees of freedom
-## AIC: 8861.1
+##     Null deviance: 10081.1  on 9599  degrees of freedom
+## Residual deviance:  8778.2  on 9573  degrees of freedom
+## AIC: 8832.2
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
 <p>You have seen <code>glm()</code> before. In this lab, this is the main function used to build logistic regression model because it is a member of generalized linear model. In <code>glm()</code>, the only thing new is <code>family</code>. It specifies the distribution of your response variable. You may also specify the link function after the name of distribution, for example, <code>family=binomial(logit)</code> (default link is logit). You can also specify <code>family=binomial(link = &quot;probit&quot;)</code> to run probit regression. You may also use <code>glm()</code> to build many other generalized linear models.</p>
@@ -291,23 +292,23 @@ summary(credit_glm0)</code></pre>
 table(credit_train$default, (pred_glm0_train &gt; 0.9)*1, dnn=c(&quot;Truth&quot;,&quot;Predicted&quot;))</code></pre>
 <pre><code>##      Predicted
 ## Truth    0    1
-##     0 7474    8
-##     1 2104   14</code></pre>
+##     0 7490   12
+##     1 2086   12</code></pre>
 <pre class="r"><code>table(credit_train$default, (pred_glm0_train &gt; 0.5)*1, dnn=c(&quot;Truth&quot;,&quot;Predicted&quot;))</code></pre>
 <pre><code>##      Predicted
 ## Truth    0    1
-##     0 7263  219
-##     1 1551  567</code></pre>
+##     0 7304  198
+##     1 1552  546</code></pre>
 <pre class="r"><code>table(credit_train$default, (pred_glm0_train &gt; 0.2)*1, dnn=c(&quot;Truth&quot;,&quot;Predicted&quot;))</code></pre>
 <pre><code>##      Predicted
 ## Truth    0    1
-##     0 4475 3007
-##     1  600 1518</code></pre>
+##     0 4604 2898
+##     1  598 1500</code></pre>
 <pre class="r"><code>table(credit_train$default, (pred_glm0_train &gt; 0.0001)*1, dnn=c(&quot;Truth&quot;,&quot;Predicted&quot;))</code></pre>
 <pre><code>##      Predicted
 ## Truth    0    1
-##     0    2 7480
-##     1    0 2118</code></pre>
+##     0    1 7501
+##     1    0 2098</code></pre>
 </div>
 <div id="asymmetric-cost" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> Asymmetric cost</h2>
@@ -321,7 +322,7 @@ cost1 &lt;- function(r, pi){
   mean(((r==0)&amp;(pi&gt;pcut)) | ((r==1)&amp;(pi&lt;pcut)))
 }
 cost1(r = credit_train$default, pi = pred_glm0_train)</code></pre>
-<pre><code>## [1] 0.184375</code></pre>
+<pre><code>## [1] 0.1822917</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Asymmetric cost function (misclassification rate) with 5:1 cost ratio, and equivalently pcut=1/(5+1).This is more appropriate for cases such as Credit Card Default:</li>
 </ol>
@@ -337,7 +338,7 @@ cost1(r = credit_train$default, pi = pred_glm0_train)</code></pre>
 
 #Asymmetric cost
 costfunc(r = credit_train$default, pi = pred_glm0_train)</code></pre>
-<pre><code>## [1] 0.6755208</code></pre>
+<pre><code>## [1] 0.6605208</code></pre>
 </div>
 </div>
 <div id="summary" class="section level1" number="4">
