@@ -30,7 +30,8 @@ Let us load the data sets. Random sampled training and test datasets will lead t
 ```{r}
 library(MASS) #this data is in MASS package
 boston_data <- data(Boston)
-sample_index <- sample(nrow(Boston),nrow(Boston)*0.90)
+set.seed(1234)
+sample_index <- sample(nrow(Boston),nrow(Boston)*0.80)
 boston_train <- Boston[sample_index,]
 boston_test <- Boston[-sample_index,]
 ```
@@ -109,7 +110,7 @@ mean((boston_test_pred_reg - boston_test$medv)^2)
 
 ### Comparing the performance of regression trees with linear regression model in terms of prediction error (Exercise)
 
-Calculate the mean squared error (MSE) and mean squared prediction error (MSPE) for linear regression model using all variables. Then compare the results. What is your conclusion? Further, try to compare the regression trees with the best linear regression model using some variable selection procedures.
+Calculate the average (mean) squared error (MSE) and mean squared prediction error (MSPE) for linear regression model using all variables. Then compare the results. What is your conclusion? Further, try to compare the regression trees with the best linear regression model using some variable selection procedures.
 
 ```{r, eval=FALSE}
 boston_lm<- 
@@ -140,25 +141,24 @@ The plotcp() function gives the relationship between 10-fold cross-validation er
 plotcp(boston_largetree)
 ```
 
-You can observe from the above graph that the cross-validation error (x-val) does not always go down when the tree becomes more complex. The analogy is when you add more variables in a regression model, its ability to predict future observations not necessarily increases. A good choice of cp for pruning is often the leftmost value for which the mean lies below the horizontal line. In the Boston housing example, you may conclude that having a tree mode with more than 10 splits is not helpful.
+You can observe from the above graph that the cross-validation error (x-val) does not always go down when the tree becomes more complex. The analogy is when you add more variables in a regression model, its ability to predict future observations not necessarily increases. 
+
+A good choice of cp for pruning is often the leftmost value for which the mean lies below the horizontal line. In the Boston housing example, you may conclude that having a tree mode with more than 10 splits is not helpful.
 
 To look at the error vs size of tree more carefully, you can look at the following table:
 ```{r}
 printcp(boston_largetree)
 ```
 
-Root node error is the error when you do not do anything too smart in prediction, in regression case, it is the mean squared error(MSE) if you use the average of medv as the prediction. Note it is the same as
+Root node error is the error when you do not do anything too smart in prediction, in regression case, it is the average (mean) squared error (MSE) if you use the average of medv as the prediction. Note it is the same as
 ```{r}
 sum((boston_train$medv - mean(boston_train$medv))^2)/nrow(boston_train)
 ```
-The first 2 columns CP and nsplit tells you how large the tree is. rel.error $\times$ root node error gives you the in sample error. For example, The last row `(rel error)*(root node error)= 0.13085*87.133 = 11.40135`, which is the same as the in-sample MSE if you calculate using predict:
+The first 2 columns CP and nsplit tells you how large the tree is. rel.error $\times$ root node error gives you the in sample error. 
 
-```{r}
-mean((predict(boston_largetree) - boston_train$medv)^2)
-```
 xerror gives you the cross-validation (default is 10-fold) error. You can see that the rel error (in-sample error) is always decreasing as model is more complex, while the cross-validation error (measure of performance on future observations) is not. That is why we **prune** the tree to avoid overfitting the training data.
 
-The way rpart() does it is that it uses some default control parameters to avoid fitting a large tree. The main reason for this approach is to save computation time. For example by default rpart set a cp = 0.1 and the minimum number of observations that must exist in a node to be 20. Use ?rpart.control to view these parameters. Sometimes we wish to change these parameters to see how more complex trees will perform, as we did above. If we have a larger than necessary tree, we can use prune() function and specify a new cp:
+The way rpart() does it is that it uses some default control parameters to avoid fitting a large tree. The main reason for this approach is to save computation time. For example by default rpart set a cp = 0.01 and the minimum number of observations that must exist in a node to be 20. Use ?rpart.control to view these parameters. Sometimes we wish to change these parameters to see how more complex trees will perform, as we did above. If we have a larger than necessary tree, we can use prune() function and specify a new cp:
 ```{r}
 prune(boston_largetree, cp = 0.008)
 ```
