@@ -20,8 +20,7 @@ In this lab, we will cover some state-of-the-art techniques in the framework of 
 # load Boston data
 library(MASS)
 data(Boston)
-set.seed(1234)
-index <- sample(nrow(Boston),nrow(Boston)*0.80)
+index <- sample(nrow(Boston),nrow(Boston)*0.60)
 boston_train <- Boston[index,]
 boston_test <- Boston[-index,]
 
@@ -32,7 +31,7 @@ credit_data$SEX<- as.factor(credit_data$SEX)
 credit_data$EDUCATION<- as.factor(credit_data$EDUCATION)
 credit_data$MARRIAGE<- as.factor(credit_data$MARRIAGE)
 # random splitting
-index <- sample(nrow(credit_data),nrow(credit_data)*0.80)
+index <- sample(nrow(credit_data),nrow(credit_data)*0.60)
 credit_train = credit_data[index,]
 credit_test = credit_data[-index,]
 ```
