@@ -30,8 +30,7 @@ Let us load the data sets. Random sampled training and test datasets will lead t
 ```{r}
 library(MASS) #this data is in MASS package
 boston_data <- data(Boston)
-set.seed(1234)
-sample_index <- sample(nrow(Boston),nrow(Boston)*0.80)
+sample_index <- sample(nrow(Boston),nrow(Boston)*0.90)
 boston_train <- Boston[sample_index,]
 boston_test <- Boston[-sample_index,]
 ```
