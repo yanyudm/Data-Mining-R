@@ -104,7 +104,7 @@ In the case of giving loan to someone, the cost function can indicate the trade 
 ```{r}
 #Symmetric cost (1:1) and equivalently pcut=1/2 
 cost1 <- function(r, pi){
-  pcut <- 1/2 #equivalant 1:1 symmetric cost ratio
+  pcut <- 1/2 #equivalently 1:1 symmetric cost ratio
   mean(((r==0)&(pi>pcut)) | ((r==1)&(pi<pcut)))
 }
 cost1(r = credit_train$default, pi = pred_glm0_train)

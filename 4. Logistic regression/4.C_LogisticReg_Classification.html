@@ -318,7 +318,7 @@ table(credit_train$default, (pred_glm0_train &gt; 0.9)*1, dnn=c(&quot;Truth&quot
 </ol>
 <pre class="r"><code>#Symmetric cost (1:1) and equivalently pcut=1/2 
 cost1 &lt;- function(r, pi){
-  pcut &lt;- 1/2 #equivalant 1:1 symmetric cost ratio
+  pcut &lt;- 1/2 #equivalently 1:1 symmetric cost ratio
   mean(((r==0)&amp;(pi&gt;pcut)) | ((r==1)&amp;(pi&lt;pcut)))
 }
 cost1(r = credit_train$default, pi = pred_glm0_train)</code></pre>
