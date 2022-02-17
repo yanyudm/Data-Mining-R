@@ -1,5 +1,5 @@
 ---
-title: "Cross Validation"
+title: "Cross Validation for logistic regression (cv.glm)"
 output: 
   html_document: 
     theme: readable
@@ -14,56 +14,64 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Cross validation for logistic regression
+# Cross validation for logistic regression (cv.glm)
 
 Cross validation is an alternative approach to training/testing split. For k-fold cross validation, the dataset is divided into k parts. Each part serves as the test set in each iteration and the rest serve as training set. The out-of-sample performance measures from the k iterations are averaged.
 
 Note
 
-1. We use the **entire** dataset for cross validation
+1. We use the **full** data (or all the data available) for cross validation
 
-2. We need to use glm instead of lm to fit the model (if we want to use cv.glm fucntion in boot package)
+2. If you use cross validation to determine tuning parameters such as in LASSO, you should use the training data only (or equivalently all the data available to build the training model).
 
-3. The default measure of performance is the Mean Squared Error (MSE). If we want to use another measure we need to define a cost function.
+3. We need to use glm instead of lm to fit the model (if we want to use cv.glm fucntion in boot package)
 
-## Cross validation for logistic regression
+4. The default measure of performance is the Mean Squared (Prediction) Error (MSPE) for continuous responses in regression such as medv in Boston housing case. If we want to use another measure we need to define a cost function.
 
-Refer to lecture slides and Elements of Statistical Learning book (section 7.10) for more advice on cross validation.
+5. For binary classification such as Credit Card default case, the default cost is not appropriate. We shall define appropriate cost functions such as AUC or (asymmetric) cost.
+
+Refer to lecture slides and previous labs for more advice on cross validation and its cost functions for binary responses in classification such as default in Credit card case.
+
 ```{r}
 pcut <- 0.5
-#Symmetric cost
-cost1 <- function(r, pi, pcut){
+#Symmetric cost, equivalently pcut=1/2
+cost1 <- function(r, pi, pcut=1/2){
   mean(((r==0)&(pi>pcut)) | ((r==1)&(pi<pcut)))
 }
-
-#Asymmetric cost
-cost2 <- function(r, pi, pcut){
-  weight1 <- 2
-  weight0 <- 1
-  c1 <- (r==1)&(pi<pcut) #logical vector - true if actual 1 but predict 0
-  c0 <-(r==0)&(pi>pcut) #logical vector - true if actual 0 but predict 1
-  return(mean(weight1*c1+weight0*c0))
-}
 ```
+More appropriate for Credit Card default case: Asymmetric cost function (misclassification rate) with 5:1 cost ratio, or equivalently pcut=1/(5+1)
 
-We can use the same cost function as defined before, but you need to modify it such that there are only two input: observed $Y$ and predicted probability, so that the `cv.glm` can recognize it for cross-validation with asymmetric cost. 
+Note that symmetric cost (misclassification rate) takes value between 0 to 1, but with the asymmetric weight it is harder to evaluate the number directly. Instead, when you use it for model comparison, the smaller cost the better the model is.
+
+Again, cv.glm() only takes cost() function with two inputs. Let's define observed response as "obs" and predicted probability as "pred.p" and define the cutoff probability "pcut" inside the function. Cost ratio is usually specified by domain experts. 
 
 ```{r}
+#Asymmetric cost, pcut=1/(5+1) for 5:1 ratio
 costfunc  <- function(obs, pred.p){
     weight1 <- 5   # define the weight for "true=1 but pred=0" (FN)
     weight0 <- 1    # define the weight for "true=0 but pred=1" (FP)
     pcut <- 1/(1+weight1/weight0)
-    c1 <- (obs==1)&(pred.p < pcut)    # count for "true=1 but pred=0"   (FN)
-    c0 <- (obs==0)&(pred.p >= pcut)   # count for "true=0 but pred=1"   (FP)
+    c1 <- (obs==1)&(pred.p < pcut)    # logical vector for "true=1 but pred=0" (FN)
+    c0 <- (obs==0)&(pred.p >= pcut)   #logical vector for "true=0 but pred=1" (FP)
     cost <- mean(weight1*c1 + weight0*c0)  # misclassification with weight
     return(cost) # you have to return to a value when you write R functions
 } # end 
 ```
+Another appropriate cost for binary classification such as in Credit Card default case is AUC (area under the ROC curve). Note that AUC doesn't rely on a specific cutoff-probability. ROC curve is obtained while varying the cutoff probabilities.
 
-10-fold cross validation, note you should use the **full data** for cross-validation. In `cv.glm`, default cost function is the average squared error function.
+```{r}
+#AUC as cost
+costfunc1 = function(obs, pred.p){
+  pred <- prediction(pred.p, obs)
+  perf <- performance(pred, "tpr", "fpr")
+  cost =unlist(slot(performance(pred, "auc"), "y.values"))
+  return(cost)
+} 
+```
+
 
 ```{r, message=FALSE, warning=FALSE}
-credit_data <- read.csv(file = "https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
+credit_data <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
 library(dplyr)
 credit_data<- rename(credit_data, default=default.payment.next.month)
 credit_data$SEX<- as.factor(credit_data$SEX)
@@ -74,10 +82,15 @@ library(boot)
 credit_glm1<- glm(default~. , family=binomial, data=credit_data);  
 cv_result  <- cv.glm(data=credit_data, glmfit=credit_glm1, cost=costfunc, K=10) 
 cv_result$delta[2]
+library(ROCR)
+cv_result1  <- cv.glm(data=credit_data, glmfit=credit_glm1, cost=costfunc1, K=10) 
+cv_result1$delta[2]
 ```
 
 The first component of `delta` is the raw cross-validation estimate of prediction error. The second component is the adjusted cross-validation estimate. The adjustment is designed to compensate for the bias introduced by not using leave-one-out cross-validation.
 
-Keep in mind that CV-score is averaged model error. Here, it is the cost you have defined before. You may also use F-score for cross-validation, but again, you need to define the function of F-score. (Exercise!)
+Keep in mind that CV-score is averaged model error over K-fold test samples. Here, it is the cost you have defined before.
+
+For AUC as a cost, you can compare the rule-of-thumb value "0.7" for model discrimatory power.
 
 [go to top](#header)
