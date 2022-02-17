@@ -81,10 +81,11 @@ credit_data$MARRIAGE<- as.factor(credit_data$MARRIAGE)
 library(boot)
 credit_glm1<- glm(default~. , family=binomial, data=credit_data);  
 cv_result  <- cv.glm(data=credit_data, glmfit=credit_glm1, cost=costfunc, K=10) 
-cv_result$delta[2]
+cv_result$delta[2] #asymmetric misclassification rate 5:1 as cost 
+
 library(ROCR)
 cv_result1  <- cv.glm(data=credit_data, glmfit=credit_glm1, cost=costfunc1, K=10) 
-cv_result1$delta[2]
+cv_result1$delta[2] #AUC as cost
 ```
 
 The first component of `delta` is the raw cross-validation estimate of prediction error. The second component is the adjusted cross-validation estimate. The adjustment is designed to compensate for the bias introduced by not using leave-one-out cross-validation.

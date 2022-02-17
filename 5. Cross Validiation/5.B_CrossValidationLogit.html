@@ -221,12 +221,12 @@ credit_data$MARRIAGE&lt;- as.factor(credit_data$MARRIAGE)
 library(boot)
 credit_glm1&lt;- glm(default~. , family=binomial, data=credit_data);  
 cv_result  &lt;- cv.glm(data=credit_data, glmfit=credit_glm1, cost=costfunc, K=10) 
-cv_result$delta[2]</code></pre>
-<pre><code>## [1] 0.677125</code></pre>
+cv_result$delta[2] #asymmetric misclassification rate 5:1 as cost </code></pre>
+<pre><code>## [1] 0.6802417</code></pre>
 <pre class="r"><code>library(ROCR)
 cv_result1  &lt;- cv.glm(data=credit_data, glmfit=credit_glm1, cost=costfunc1, K=10) 
-cv_result1$delta[2]</code></pre>
-<pre><code>## [1] 0.7254764</code></pre>
+cv_result1$delta[2] #AUC as cost</code></pre>
+<pre><code>## [1] 0.7246552</code></pre>
 <p>The first component of <code>delta</code> is the raw cross-validation estimate of prediction error. The second component is the adjusted cross-validation estimate. The adjustment is designed to compensate for the bias introduced by not using leave-one-out cross-validation.</p>
 <p>Keep in mind that CV-score is averaged model error over K-fold test samples. Here, it is the cost you have defined before.</p>
 <p>For AUC as a cost, you can compare the rule-of-thumb value “0.7” for model discrimatory power.</p>
