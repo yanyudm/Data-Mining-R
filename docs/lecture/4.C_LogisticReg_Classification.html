@@ -186,13 +186,13 @@ pre code {
 
 <div id="objective" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Objective</h1>
-<p>The objective of this case is to get you understand logistic regression (binary classification) and some important ideas such as cut-off probability, symmetric and asymmetric misclassification rates (cost), which are important as an input argument for cross validation.</p>
+<p>The objective of this case is to get you understand logistic regression (binary classification) and some important ideas such as cross validation, ROC curve, cut-off probability.</p>
 </div>
 <div id="credit-card-default-data" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Credit Card Default Data</h1>
 <p>We will use a Credit Card Default Data for this lab and illustration. The details of the data can be found at <a href="http://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients" class="uri">http://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients</a>. Think about what kind of factors could affect people to fail to pay their credit balance.</p>
 <p>We first load the credit scoring data. It is easy to load comma-separated values (CSV).</p>
-<pre class="r"><code>credit_data &lt;- read.csv(file = &quot;https://yanyudm.github.io/Data-Mining-R/lecture/data/credit_default.csv&quot;, header=T)</code></pre>
+<pre class="r"><code>credit_data &lt;- read.csv(file = &quot;https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/credit_default.csv&quot;, header=T)</code></pre>
 <p>Look at what information do we have.</p>
 <pre class="r"><code>colnames(credit_data)</code></pre>
 <pre><code>##  [1] &quot;LIMIT_BAL&quot;                  &quot;SEX&quot;                       
@@ -226,8 +226,7 @@ credit_data$MARRIAGE&lt;- as.factor(credit_data$MARRIAGE)</code></pre>
 <div id="logistic-regression" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Logistic Regression</h1>
 <p>Randomly split the data to training (80%) and testing (20%) datasets:</p>
-<pre class="r"><code>set.seed(1234)
-index &lt;- sample(nrow(credit_data),nrow(credit_data)*0.80)
+<pre class="r"><code>index &lt;- sample(nrow(credit_data),nrow(credit_data)*0.80)
 credit_train = credit_data[index,]
 credit_test = credit_data[-index,]</code></pre>
 <div id="train-a-logistic-regression-model-with-all-variables" class="section level2" number="3.1">
@@ -240,47 +239,47 @@ summary(credit_glm0)</code></pre>
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -3.1710  -0.6946  -0.5357  -0.2781   3.0383  
+## -3.2336  -0.6881  -0.5328  -0.2794   3.2084  
 ## 
 ## Coefficients:
 ##               Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept) -9.416e-01  1.551e-01  -6.073 1.26e-09 ***
-## LIMIT_BAL   -1.117e-06  2.855e-07  -3.911 9.19e-05 ***
-## SEX2        -1.953e-01  5.463e-02  -3.575 0.000350 ***
-## EDUCATION2  -1.316e-01  6.325e-02  -2.081 0.037479 *  
-## EDUCATION3  -2.096e-01  8.563e-02  -2.448 0.014366 *  
-## EDUCATION4  -1.305e+00  3.481e-01  -3.749 0.000178 ***
-## MARRIAGE2   -1.398e-01  6.210e-02  -2.251 0.024412 *  
-## MARRIAGE3   -1.504e-01  2.494e-01  -0.603 0.546677    
-## AGE          5.560e-03  3.360e-03   1.655 0.097992 .  
-## PAY_0        5.903e-01  3.189e-02  18.512  &lt; 2e-16 ***
-## PAY_2        5.904e-02  3.626e-02   1.628 0.103448    
-## PAY_3        8.675e-02  4.028e-02   2.154 0.031256 *  
-## PAY_4        1.099e-02  4.488e-02   0.245 0.806608    
-## PAY_5        1.084e-01  4.760e-02   2.276 0.022834 *  
-## PAY_6       -1.973e-02  4.036e-02  -0.489 0.624931    
-## BILL_AMT1   -5.118e-06  1.959e-06  -2.613 0.008977 ** 
-## BILL_AMT2    3.261e-06  2.558e-06   1.275 0.202421    
-## BILL_AMT3   -3.360e-08  2.291e-06  -0.015 0.988295    
-## BILL_AMT4   -2.876e-06  2.508e-06  -1.147 0.251481    
-## BILL_AMT5    5.405e-06  2.654e-06   2.037 0.041681 *  
-## BILL_AMT6   -1.356e-06  2.006e-06  -0.676 0.499098    
-## PAY_AMT1    -9.106e-06  3.296e-06  -2.763 0.005732 ** 
-## PAY_AMT2    -5.865e-06  3.169e-06  -1.851 0.064228 .  
-## PAY_AMT3    -4.332e-06  3.297e-06  -1.314 0.188964    
-## PAY_AMT4    -3.610e-06  2.867e-06  -1.259 0.207952    
-## PAY_AMT5     9.029e-07  2.730e-06   0.331 0.740865    
-## PAY_AMT6    -1.663e-06  2.061e-06  -0.807 0.419786    
+## (Intercept) -1.062e+00  1.554e-01  -6.835 8.22e-12 ***
+## LIMIT_BAL   -8.529e-07  2.839e-07  -3.004 0.002662 ** 
+## SEX2        -1.734e-01  5.487e-02  -3.161 0.001572 ** 
+## EDUCATION2  -2.026e-01  6.369e-02  -3.181 0.001470 ** 
+## EDUCATION3  -2.770e-01  8.586e-02  -3.226 0.001254 ** 
+## EDUCATION4  -1.193e+00  3.209e-01  -3.719 0.000200 ***
+## MARRIAGE2   -1.559e-01  6.242e-02  -2.498 0.012502 *  
+## MARRIAGE3    1.243e-01  2.271e-01   0.547 0.584348    
+## AGE          9.411e-03  3.343e-03   2.815 0.004871 ** 
+## PAY_0        5.845e-01  3.173e-02  18.420  &lt; 2e-16 ***
+## PAY_2        1.174e-01  3.583e-02   3.277 0.001048 ** 
+## PAY_3        3.494e-02  4.004e-02   0.873 0.382820    
+## PAY_4        5.437e-02  4.524e-02   1.202 0.229443    
+## PAY_5        6.415e-02  4.786e-02   1.340 0.180163    
+## PAY_6       -2.227e-03  4.040e-02  -0.055 0.956039    
+## BILL_AMT1   -7.209e-06  2.085e-06  -3.457 0.000546 ***
+## BILL_AMT2    5.548e-06  2.557e-06   2.169 0.030046 *  
+## BILL_AMT3    9.992e-07  2.141e-06   0.467 0.640692    
+## BILL_AMT4   -2.279e-06  2.400e-06  -0.950 0.342287    
+## BILL_AMT5    2.086e-06  2.778e-06   0.751 0.452713    
+## BILL_AMT6   -1.966e-07  2.217e-06  -0.089 0.929371    
+## PAY_AMT1    -9.237e-06  3.272e-06  -2.823 0.004755 ** 
+## PAY_AMT2    -9.854e-06  3.566e-06  -2.764 0.005718 ** 
+## PAY_AMT3    -6.692e-07  2.858e-06  -0.234 0.814859    
+## PAY_AMT4    -4.732e-06  3.142e-06  -1.506 0.132093    
+## PAY_AMT5    -1.528e-06  3.141e-06  -0.486 0.626613    
+## PAY_AMT6    -2.088e-06  2.082e-06  -1.003 0.315839    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 10081.1  on 9599  degrees of freedom
-## Residual deviance:  8778.2  on 9573  degrees of freedom
-## AIC: 8832.2
+##     Null deviance: 10040.1  on 9599  degrees of freedom
+## Residual deviance:  8724.4  on 9573  degrees of freedom
+## AIC: 8778.4
 ## 
-## Number of Fisher Scoring iterations: 5</code></pre>
+## Number of Fisher Scoring iterations: 6</code></pre>
 <p>You have seen <code>glm()</code> before. In this lab, this is the main function used to build logistic regression model because it is a member of generalized linear model. In <code>glm()</code>, the only thing new is <code>family</code>. It specifies the distribution of your response variable. You may also specify the link function after the name of distribution, for example, <code>family=binomial(logit)</code> (default link is logit). You can also specify <code>family=binomial(link = &quot;probit&quot;)</code> to run probit regression. You may also use <code>glm()</code> to build many other generalized linear models.</p>
 </div>
 <div id="binary-classification" class="section level2" number="3.2">
@@ -292,52 +291,52 @@ summary(credit_glm0)</code></pre>
 table(credit_train$default, (pred_glm0_train &gt; 0.9)*1, dnn=c(&quot;Truth&quot;,&quot;Predicted&quot;))</code></pre>
 <pre><code>##      Predicted
 ## Truth    0    1
-##     0 7490   12
-##     1 2086   12</code></pre>
+##     0 7509    9
+##     1 2068   14</code></pre>
 <pre class="r"><code>table(credit_train$default, (pred_glm0_train &gt; 0.5)*1, dnn=c(&quot;Truth&quot;,&quot;Predicted&quot;))</code></pre>
 <pre><code>##      Predicted
 ## Truth    0    1
-##     0 7304  198
-##     1 1552  546</code></pre>
+##     0 7309  209
+##     1 1540  542</code></pre>
 <pre class="r"><code>table(credit_train$default, (pred_glm0_train &gt; 0.2)*1, dnn=c(&quot;Truth&quot;,&quot;Predicted&quot;))</code></pre>
 <pre><code>##      Predicted
 ## Truth    0    1
-##     0 4604 2898
-##     1  598 1500</code></pre>
+##     0 4714 2804
+##     1  635 1447</code></pre>
 <pre class="r"><code>table(credit_train$default, (pred_glm0_train &gt; 0.0001)*1, dnn=c(&quot;Truth&quot;,&quot;Predicted&quot;))</code></pre>
 <pre><code>##      Predicted
 ## Truth    0    1
-##     0    1 7501
-##     1    0 2098</code></pre>
+##     0    3 7515
+##     1    0 2082</code></pre>
+<p>Therefore, determine the optimal cut-off probability is crucial. The simplest way to determine the cut-off is to use the proportion of “1” in the original data. We will intriduce a more appropriate way to determine the optimal p-cut.</p>
 </div>
 <div id="asymmetric-cost" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> Asymmetric cost</h2>
 <p>In the case of giving loan to someone, the cost function can indicate the trade off between the risk of giving loan to someone who cannot pay (predict 0, truth 1), and risk of rejecting someone who qualifies (predict 1, truth 0). Given different business situation, one may need to have asymmetric costs for false positive and false negative. Meanwhile, when you want a binary classification decision rule, you need to choose different cut-off probability. Choosing a large cut-off probability will result in few cases being predicted as 1, and choosing a small cut-off probability will result in many cases being predicted as 1.</p>
 <ol style="list-style-type: decimal">
-<li>Symmetric cost function (misclassification rate) with 1:1 cost ratio, or equivalently pcut=1/2. This is not very appropriate for cases such as Credit Card Default:</li>
+<li>The symmetric cost function with 1:1 cost ratio, equivalently pcut=1/2; and asymmetric cost function with 5:1 cost ratio, equivalently pcut=1/6:</li>
 </ol>
-<pre class="r"><code>#Symmetric cost (1:1) and equivalently pcut=1/2 
-cost1 &lt;- function(r, pi){
-  pcut &lt;- 1/2 #equivalently 1:1 symmetric cost ratio
+<pre class="r"><code>#Symmetric cost with 1:1 cost ratio, equivalently pcut=1/2
+cost1 &lt;- function(r, pi, pcut=1/2){
   mean(((r==0)&amp;(pi&gt;pcut)) | ((r==1)&amp;(pi&lt;pcut)))
 }
-cost1(r = credit_train$default, pi = pred_glm0_train)</code></pre>
-<pre><code>## [1] 0.1822917</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Asymmetric cost function (misclassification rate) with 5:1 cost ratio, and equivalently pcut=1/(5+1).This is more appropriate for cases such as Credit Card Default:</li>
-</ol>
-<pre class="r"><code>#Asymmetric cost (5:1) and equivalently pcut=1/(5+1) 
-costfunc  &lt;- function(r, pi){
-    weight1 &lt;- 5   # define the weight for &quot;true=1 but pred=0&quot; (FN)
-    weight0 &lt;- 1    # define the weight for &quot;true=0 but pred=1&quot; (FP)
-    pcut &lt;- 1/(1+weight1/weight0)  # equivalent 5:1 asymmetric cost ratio
-    c1 &lt;- (r==1)&amp;(pi &lt; pcut)    # count for &quot;true=1 but pred=0&quot; (FN)
-    c0 &lt;- (r==0)&amp;(pi &gt;= pcut)   # count for &quot;true=0 but pred=1&quot; (FP)
-    cost &lt;- mean(weight1*c1 + weight0*c0)  # misclassification with weight
-    return(cost) # you have to return to a value when you write R functions
-} # end 
-costfunc(r = credit_train$default, pi = pred_glm0_train)</code></pre>
-<pre><code>## [1] 0.6605208</code></pre>
+
+#Asymmetric cost with 5:1 cost ratio, equivalently pcut=1/6
+cost2 &lt;- function(r, pi, pcut=1/6){
+  weight1 &lt;- 5
+  weight0 &lt;- 1
+  c1 &lt;- (r==1)&amp;(pi&lt;pcut) #logical vector - true if actual 1 but predict 0
+  c0 &lt;-(r==0)&amp;(pi&gt;pcut) #logical vector - true if actual 0 but predict 1
+  return(mean(weight1*c1+weight0*c0))
+}</code></pre>
+<pre class="r"><code>#Symmetric cost
+cost1(r = credit_train$default, pi = pred_glm0_train, pcut=1/2)</code></pre>
+<pre><code>## [1] 0.1821875</code></pre>
+<pre class="r"><code>#Asymmetric cost
+cost2(r = credit_train$default, pi = pred_glm0_train, pcut=1/6)</code></pre>
+<pre><code>## [1] 0.6642708</code></pre>
+<p>Here “pcut = 1/(1+weight1/weight0)” can be specified within the cost2 function so that cost is a function(r, pi) of two arguments only that can be fed to cv.glm() later for cross validation.</p>
+<p>In general, you will pre-specify a cost ratio (e.g. 5:1) from the domain knowledge and use the equivalent cut-off probability (1/(5+1)). Then you will use that cost value to compare different models under the SAME cost function (asymmetric cost2).</p>
 </div>
 </div>
 <div id="summary" class="section level1" number="4">

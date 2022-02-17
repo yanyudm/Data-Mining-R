@@ -16,7 +16,7 @@ editor_options:
 
 # Objective
 
-The objective of this case is to get you understand logistic regression (binary classification) and some important ideas such as cut-off probability, symmetric and asymmetric misclassification rates (cost), which are important as an input argument for cross validation. 
+The objective of this case is to get you understand logistic regression (binary classification) and some important ideas such as cross validation, ROC curve, cut-off probability. 
 
 # Credit Card Default Data
 
@@ -25,7 +25,7 @@ Think about what kind of factors could affect people to fail to pay their credit
 
 We first load the credit scoring data. It is easy to load comma-separated values (CSV). 
 ```{r}
-credit_data <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
+credit_data <- read.csv(file = "https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
 ```
 
 Look at what information do we have.
@@ -66,7 +66,6 @@ credit_data$MARRIAGE<- as.factor(credit_data$MARRIAGE)
 
 Randomly split the data to training (80%) and testing (20%) datasets:
 ```{r}
-set.seed(1234)
 index <- sample(nrow(credit_data),nrow(credit_data)*0.80)
 credit_train = credit_data[index,]
 credit_test = credit_data[-index,]
@@ -95,37 +94,43 @@ table(credit_train$default, (pred_glm0_train > 0.2)*1, dnn=c("Truth","Predicted"
 table(credit_train$default, (pred_glm0_train > 0.0001)*1, dnn=c("Truth","Predicted"))
 ```
 
+Therefore, determine the optimal cut-off probability is crucial. The simplest way to determine the cut-off is to use the proportion of "1" in the original data. We will intriduce a more appropriate way to determine the optimal p-cut.
+
 ## Asymmetric cost
 
 In the case of giving loan to someone, the cost function can indicate the trade off between the risk of giving loan to someone who cannot pay (predict 0, truth 1), and risk of rejecting someone who qualifies (predict 1, truth 0). Given different business situation, one may need to have asymmetric costs for false positive and false negative. Meanwhile, when you want a binary classification decision rule, you need to choose different cut-off probability. Choosing a large cut-off probability will result in few cases being predicted as 1, and choosing a small cut-off probability will result in many cases being predicted as 1. 
 
-1. Symmetric cost function (misclassification rate) with 1:1 cost ratio, or equivalently pcut=1/2. This is not very appropriate for cases such as Credit Card Default:
+1. The symmetric cost function with 1:1 cost ratio, equivalently pcut=1/2; and asymmetric cost function with 5:1 cost ratio, equivalently pcut=1/6:
 
 ```{r}
-#Symmetric cost (1:1) and equivalently pcut=1/2 
-cost1 <- function(r, pi){
-  pcut <- 1/2 #equivalently 1:1 symmetric cost ratio
+#Symmetric cost with 1:1 cost ratio, equivalently pcut=1/2
+cost1 <- function(r, pi, pcut=1/2){
   mean(((r==0)&(pi>pcut)) | ((r==1)&(pi<pcut)))
 }
-cost1(r = credit_train$default, pi = pred_glm0_train)
-```
 
-2. Asymmetric cost function (misclassification rate) with 5:1 cost ratio, and equivalently pcut=1/(5+1).This is more appropriate for cases such as Credit Card Default:
+#Asymmetric cost with 5:1 cost ratio, equivalently pcut=1/6
+cost2 <- function(r, pi, pcut=1/6){
+  weight1 <- 5
+  weight0 <- 1
+  c1 <- (r==1)&(pi<pcut) #logical vector - true if actual 1 but predict 0
+  c0 <-(r==0)&(pi>pcut) #logical vector - true if actual 0 but predict 1
+  return(mean(weight1*c1+weight0*c0))
+}
+```
 
 ```{r}
-#Asymmetric cost (5:1) and equivalently pcut=1/(5+1) 
-costfunc  <- function(r, pi){
-    weight1 <- 5   # define the weight for "true=1 but pred=0" (FN)
-    weight0 <- 1    # define the weight for "true=0 but pred=1" (FP)
-    pcut <- 1/(1+weight1/weight0)  # equivalent 5:1 asymmetric cost ratio
-    c1 <- (r==1)&(pi < pcut)    # count for "true=1 but pred=0" (FN)
-    c0 <- (r==0)&(pi >= pcut)   # count for "true=0 but pred=1" (FP)
-    cost <- mean(weight1*c1 + weight0*c0)  # misclassification with weight
-    return(cost) # you have to return to a value when you write R functions
-} # end 
-costfunc(r = credit_train$default, pi = pred_glm0_train)
+#Symmetric cost
+cost1(r = credit_train$default, pi = pred_glm0_train, pcut=1/2)
 
+#Asymmetric cost
+cost2(r = credit_train$default, pi = pred_glm0_train, pcut=1/6)
 ```
+
+Here "pcut = 1/(1+weight1/weight0)" can be specified within the cost2 function so that cost is a function(r, pi) of two arguments only that can be fed to cv.glm() later for cross validation. 
+
+In general, you will pre-specify a cost ratio (e.g. 5:1) from the domain knowledge and use the equivalent cut-off probability (1/(5+1)). Then you will use that cost value to compare different models under the SAME cost function (asymmetric cost2). 
+
+
 
 # Summary
 
@@ -134,6 +139,7 @@ costfunc(r = credit_train$default, pi = pred_glm0_train)
 * Know how to use glm() to build logistic regression;
 
 * Know how to do binary classification, and calculation of MR, FPR, FNR, and (asymmetric) cost;
+
 
 [go to top](#header)
 
