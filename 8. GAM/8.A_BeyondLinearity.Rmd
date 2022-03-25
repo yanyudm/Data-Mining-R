@@ -199,6 +199,6 @@ lines(X, conf_interval[,3], col="red", lty=2)
 
 ## Smoothing/Penalized Spline
 
-We now use penalized splines where a penalty/smoothing parameter can help control the smoothness while many knots can be used and knot location does not need to be carefully selected. The `s()` function is part of the gam function from the mgcv package.
+We can also use penalized splines where a penalty/smoothing parameter can help control the smoothness while many knots can be used and knot location does not need to be carefully selected. The `s()` function is part of the gam function from the mgcv package. This will be covered in the lab next for GAM, where we build a Generalized Additive Model (GAM) using the (univariate) "Motorcycle" dataset. 
 
 [go to top](#header)
