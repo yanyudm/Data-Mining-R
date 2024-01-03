@@ -110,14 +110,15 @@ table th:nth-of-type(3) {
 <a id="bottom"></a>
 
 ### Contributors: 
-- Jiantong Wang, Ph.D Candidate. University of Cincinnati, Cincinnati, OH.
 - Tracy Zhou Wu, Ph.D. (2008). Executive Director/VP, JPMorgan Chase, Dallas, TX.  
-- Shaonan Tian, Ph.D. (2012). Tenure Track Assistant Prof. at San Jose State University, CA. 
-- Chaojiang Wu, Ph.D. (2013). Tenure Track Assistant Prof. at Drexel University, PA (now Kent State University, OH).
-- Feng Mai, Ph.D., Assistant Professor of Information Systems in the School of Business at Stevens Institute of Technology
+- Shaonan Tian, Ph.D. (2012). Associate Prof. at San Jose State University, CA. 
+- Chaojiang Wu, Ph.D. (2013). Associate Prof. at Drexel University, PA (now Kent State University, OH).
+- Feng Mai, Ph.D.(2015), Associate Prof. at Stevens Institute of Technology
 - Shaobo Li, Ph.D. (2018). Tenure Track Assistant Prof. at University of Kansas.
 - Yuankun Zhang, Ph.D. (2018). VP, Bank of New York Mellon, Pittsburgh, PA.
 - Brittany Green, Ph.D. (2020). Tenure Track Assistant Prof. at University of Louisville.
-- Xiaorui Zhu, Tianhai Zu, Saidat Sanni, Zewei Lin, ongoing Ph.D. students.
+- Xiaorui Zhu, Ph.D. (2022). Tenure Track Assistant Prof. at Towson University.
+- ianhai Zu, Ph.D. (2023). Tenure Track Assistant Prof. at the University of Texas at San Antonio.
+- Saidat Sanni, Zewei Lin, Jiantong Wang, ongoing Ph.D. students.
 - Zhiyuan Dong, Ph.D. Principal, Media Center of Excellence at IRI, Chicago
 - Wei Xiong, Jingyin Gene, ChongQing, China
