@@ -26,7 +26,7 @@ library(glmnet)
 ## Load Data
 
 ```{r}
-credit.data <- read.csv("data/credit0.csv", header=T)
+credit.data <- read.csv("https://yanyudm.github.io/Data-Mining-R/lecture/data/credit0.csv", header=T)
 ```
 
 We remove X9 and id from the data since we will not be using them for prediction.

@@ -1732,7 +1732,7 @@ summary {
 <h1><span class="header-section-number">1</span> Credit Score Data</h1>
 <div id="load-data" class="section level2">
 <h2><span class="header-section-number">1.1</span> Load Data</h2>
-<pre class="r"><code>credit.data &lt;- read.csv(&quot;data/credit0.csv&quot;, header=T)</code></pre>
+<pre class="r"><code>credit.data &lt;- read.csv(&quot;https://yanyudm.github.io/Data-Mining-R/lecture/data/credit0.csv&quot;, header=T)</code></pre>
 <p>We remove X9 and id from the data since we will not be using them for prediction.</p>
 <pre class="r"><code>credit.data$X9 = NULL
 credit.data$id = NULL
@@ -1750,7 +1750,7 @@ credit.test = credit.data[-id_train,]</code></pre>
 <p>SVM is probably one of the best off-the-shelf classifiers for many of problems. It handles nonlinearity, is well regularized (avoids overfitting), have few parameters, and fast for large number of observations. It can be adapted to handle regression problems as well. You can read more about SVM in Chapter 12 of the textbook.</p>
 <p>The R package e1071 offers an interface to the most popular svm implementation libsvm. You should read more about the usage of the package in this short tutorial (<a href="http://cran.r-project.org/web/packages/e1071/vignettes/svmdoc.pdf" class="uri">http://cran.r-project.org/web/packages/e1071/vignettes/svmdoc.pdf</a>).</p>
 <pre class="r"><code>install.packages(&#39;e1071&#39;)</code></pre>
-<pre class="r"><code>credit.data &lt;- read.csv(&quot;data/credit0.csv&quot;, header=T)
+<pre class="r"><code>credit.data &lt;- read.csv(&quot;https://yanyudm.github.io/Data-Mining-R/lecture/data/credit0.csv&quot;, header=T)
 credit.data$X9 = NULL
 credit.data$id = NULL
 credit.data$Y = as.factor(credit.data$Y)

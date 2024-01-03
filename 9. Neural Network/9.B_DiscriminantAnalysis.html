@@ -381,7 +381,7 @@ summary {
 <h1><span class="header-section-number">1</span> Credit Score Data</h1>
 <div id="load-data" class="section level2">
 <h2><span class="header-section-number">1.1</span> Load Data</h2>
-<pre class="r"><code>credit.data &lt;- read.csv(&quot;data/credit0.csv&quot;, header=T)</code></pre>
+<pre class="r"><code>credit.data &lt;- read.csv(&quot;https://yanyudm.github.io/Data-Mining-R/lecture/data/credit0.csv&quot;, header=T)</code></pre>
 <p>We remove X9 and id from the data since we will not be using them for prediction.</p>
 <pre class="r"><code>credit.data$X9 = NULL
 credit.data$id = NULL
