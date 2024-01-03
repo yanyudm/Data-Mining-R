@@ -144,7 +144,7 @@ AIC(model_1)
 
 > Exercise 
 
->   1. Comparing in-sample and out-of-sample performance between these reduced models. 
+>   1. Compare in-sample and out-of-sample performance between these reduced models. 
 
 >   2. Conduct 10-fold cross validation on the full sample and compare the CV scores.
 
