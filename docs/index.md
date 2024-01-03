@@ -112,7 +112,7 @@ table th:nth-of-type(3) {
 ### Contributors: 
 - Tracy Zhou Wu, Ph.D. (2008). Executive Director/VP, JPMorgan Chase, Dallas, TX.  
 - Shaonan Tian, Ph.D. (2012). Associate Prof. at San Jose State University, CA. 
-- Chaojiang Wu, Ph.D. (2013). Associate Prof. at Drexel University, PA (now Kent State University, OH).
+- Chaojiang Wu, Ph.D. (2013). Associate Prof. at Kent State University, OH.
 - Feng Mai, Ph.D.(2015), Associate Prof. at Stevens Institute of Technology, NJ
 - Shaobo Li, Ph.D. (2018). Tenure Track Assistant Prof. at University of Kansas, KS.
 - Yuankun Zhang, Ph.D. (2018). VP, Bank of New York Mellon, Pittsburgh, PA.
