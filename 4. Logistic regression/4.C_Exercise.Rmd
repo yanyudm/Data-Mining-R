@@ -19,7 +19,7 @@ editor_options:
 > 1. Based on a full model, create a confusion matrix when the cutoff probability equals to 0.1.
 
 ```{r echo=FALSE, eval=FALSE}
-credit_data <- read.csv(file = "https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
+credit_data <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
 library(dplyr)
 credit_data<- rename(credit_data, default=default.payment.next.month)
 credit_data$EDUCATION<- as.factor(credit_data$EDUCATION)

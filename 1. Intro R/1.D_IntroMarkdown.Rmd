@@ -42,12 +42,12 @@ If everything goes correct, you will have the HTML/pdf/word file generated and p
 
 3. lists - Use asterisks or dash to create bullet points.
 
-4. hyperlinks - create a hyperlink like this [Data-Mining](https://xiaoruizhu.github.io/Data-Mining-R/).
+4. hyperlinks - create a hyperlink like this [Data-Mining](https://yanyudm.github.io/Data-Mining-R/).
 
 ```
 # Say Hello to **Data Mining** in Markdown
 
-* [Data Mining in R on Github](https://xiaoruizhu.github.io/Data-Mining-R/)
+* [Data Mining in R on Github](https://yanyudm.github.io/Data-Mining-R/)
 * [Markdown Syntax](https://daringfireball.net/projects/markdown/basics)
 * [StackOverflow](www.stackoverflow.com)
 * [Reddit](www.reddit.com)

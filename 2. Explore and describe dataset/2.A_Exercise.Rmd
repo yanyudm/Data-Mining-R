@@ -28,7 +28,7 @@ options(width = 200)
 > Download the customer data and read into R.
 
 ```{r echo=TRUE, eval=FALSE}
-customer <- read.csv(file = "https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/CustomerData.csv")
+customer <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/CustomerData.csv")
 ```
 >
 > 1. How many rows and columns of the dataset?
@@ -52,7 +52,7 @@ mypivot[2,]/table(customer$JobCategory)
 #################### Exercise ###########################
 
 ## Download the customer data here, and read into R.
-customer <- read.csv(file = "https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/CustomerData.csv")
+customer <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/CustomerData.csv")
 
 ## How many rows and columns of the dataset?
 col<-ncol(customer)

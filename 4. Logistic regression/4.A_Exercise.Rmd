@@ -19,7 +19,7 @@ editor_options:
 > 1. Compare AIC and BIC of the full model and a reduced model with `LIMIT_BAL`, `SEX`, and `AGE` only.
 
 ```{r echo=FALSE, eval=FALSE}
-credit_data <- read.csv(file = "https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
+credit_data <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
 library(dplyr)
 credit_data<- rename(credit_data, default=default.payment.next.month)
 credit_data$EDUCATION<- as.factor(credit_data$EDUCATION)

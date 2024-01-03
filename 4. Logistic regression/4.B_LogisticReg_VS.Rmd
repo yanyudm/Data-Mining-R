@@ -25,7 +25,7 @@ Think about what kind of factors could affect people to fail to pay their credit
 
 We first load the credit scoring data. It is easy to load comma-separated values (CSV). 
 ```{r}
-credit_data <- read.csv(file = "https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
+credit_data <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
 ```
 
 Look at what information do we have.

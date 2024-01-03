@@ -18,7 +18,7 @@ editor_options:
 > For a high dimensional dataset having n<p (n=200, p=500), is it possible to fit a linear regression on that directly?
 
 ```{r echo=TRUE, eval=FALSE}
-HighDim <- read.csv(file = "https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/HighDim.csv")
+HighDim <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/HighDim.csv")
 ```
 > Can we do subset variable selection? 
 > How about LASSO variable selection?
