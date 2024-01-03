@@ -607,14 +607,14 @@ inspect(subset(basket_rules, size(basket_rules)&gt;4))</code></pre>
 <p>For problem 1 Iris data, simply use the Iris dataset in R. When doing cluster analysis for Iris you’ll want to ignore the Species variable.</p>
 <pre class="r"><code>data(iris)</code></pre>
 <p>For problem 2 Cincinnati Zoo data, use the following code to load the transaction data for association rules mining. <em>as()</em> function coerce the dataset into transaction data type for association rules mining.</p>
-<pre class="r"><code>TransFood &lt;- read.csv('https://xiaoruizhu.github.io/Data-Mining-R/data/food_4_association.csv')
+<pre class="r"><code>TransFood &lt;- read.csv('https://yanyudm.github.io/Data-Mining-R/data/food_4_association.csv')
 TransFood &lt;- TransFood[, -1]
 # Find out elements that are not equal to 0 or 1 and change them to 1.
 Others &lt;- which(!(as.matrix(TransFood) ==1 | as.matrix(TransFood) ==0), arr.ind=T )
 TransFood[Others] &lt;- 1
 TransFood &lt;- as(as.matrix(TransFood), &quot;transactions&quot;)</code></pre>
 <p>Load the data for clustering:</p>
-<pre class="r"><code>Food_by_month &lt;- read.csv('https://xiaoruizhu.github.io/Data-Mining-R/data/qry_Food_by_Month.csv')</code></pre>
+<pre class="r"><code>Food_by_month &lt;- read.csv('https://yanyudm.github.io/Data-Mining-R/data/qry_Food_by_Month.csv')</code></pre>
 <p><a href="#header">go to top</a></p>
 </div>
 

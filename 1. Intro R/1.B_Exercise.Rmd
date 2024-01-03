@@ -42,7 +42,7 @@ Q
 > 
 > 4. Use the following code to load the [CustomerData](data/CustomerData.csv) to your R.
 ```{r echo=TRUE, eval=FALSE}
-customer <- read.csv(file = "https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/CustomerData.csv")
+customer <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/CustomerData.csv")
 ```
 >   - How many rows and columns are there?
 >   - Extract all variable names.
@@ -67,7 +67,7 @@ matrixa <- matrix(a,nrow=3,ncol = 3,byrow = FALSE)
 matrixa[3,2]
 
 #4.
-customer <- read.csv(file = "https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/CustomerData.csv")
+customer <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/CustomerData.csv")
 
 ## How many rows and columns of the dataset?
 col<-ncol(customer)
