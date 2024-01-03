@@ -42,7 +42,7 @@ table th:nth-of-type(3) {
 | [3.A Linear regression and prediction](lecture/3.A_LinearReg.html)           |
 | [3.B Subset variable selection](lecture/3.B_SubsetVS.html)                   |
 | [3.C LASSO variable selection](lecture/3.C_LASSO.html)                      |
-| [3.D Monte Carlo simulation](lecture/3.D_Simulation.html)                      |
+| [3.D Monte Carlo simulation (optional)](lecture/3.D_Simulation.html)                      |
 
 ### Logistic Regression
 
@@ -87,8 +87,8 @@ table th:nth-of-type(3) {
 | Lab Notes |
 |:----------|
 | [9.A Neural network models](lecture/9.A_NeuralNet.html)                      |
-| [9.B (Optional) Discriminant analysis](lecture/9.B_DiscriminantAnalysis.html)|
-| [9.C (Optional) Support vector machine (SVM)](lecture/9.C_SVM.html)          | 
+| [9.B Discriminant analysis (optional)](lecture/9.B_DiscriminantAnalysis.html)|
+| [9.C Support vector machine (SVM) (optional)](lecture/9.C_SVM.html)          | 
 
 ### Unsupervised Learning: Clustering
 
