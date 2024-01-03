@@ -463,7 +463,7 @@ cost2 &lt;- function(r, pi, pcut){
 <p>Then you need to assign a value to pcut.</p>
 <pre class="r"><code>pcut = 0.02  </code></pre>
 <p>10-fold cross validation, note you should use the <strong>full data</strong> for cross-validation. In <code>cv.glm</code>, default cost function is the average squared error function.</p>
-<pre class="r"><code>credit.data &lt;- read.csv(file = &quot;https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/credit_default.csv&quot;, header=T)
+<pre class="r"><code>credit.data &lt;- read.csv(file = &quot;https://yanyudm.github.io/Data-Mining-R/lecture/data/credit_default.csv&quot;, header=T)
 library(dplyr)
 credit.data&lt;- rename(credit.data, default=default.payment.next.month)
 credit.data$SEX&lt;- as.factor(credit.data$SEX)

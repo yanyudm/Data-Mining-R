@@ -35,7 +35,7 @@ library(rpart.plot)
 ```
 
 ```{r}
-credit_data <- read.csv(file = "https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
+credit_data <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
 
 # rename
 library(dplyr)

@@ -55,7 +55,7 @@ legend("topright", legend = c("test Error", "OOB Error"), pch = 15, col = c("red
 
 ```{r, eval=FALSE, echo=FALSE}
 # load credit card data
-credit.data <- read.csv("https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
+credit.data <- read.csv("https://yanyudm.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
 # convert categorical variables
 credit.data$SEX<- as.factor(credit.data$SEX)
 credit.data$EDUCATION<- as.factor(credit.data$EDUCATION)

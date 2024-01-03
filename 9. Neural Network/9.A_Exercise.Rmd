@@ -39,7 +39,7 @@ plot(nn)
 > 2. For Bankruptcy dataset, what are the in-sample and out-of-sample AUC using only one layer with 5 neurons? 
 
 ```{r echo=FALSE, eval=FALSE}
-Bank_data <- read.csv(file = "https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/bankruptcy.csv", header=T)
+Bank_data <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/bankruptcy.csv", header=T)
 # summary(Bank_data)
 library(MASS)
 # maxs <- apply(Bank_data[,-c(1:3)], 2, max) 

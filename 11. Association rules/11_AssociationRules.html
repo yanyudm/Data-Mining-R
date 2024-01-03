@@ -513,7 +513,7 @@ inspect(subset(basket_rules, size(basket_rules)&gt;4))</code></pre>
 <h1 number="2"><span class="header-section-number">2</span> Case Starter Code</h1>
 <p><a id="case4"></a></p>
 <p>For Cincinnati Zoo data, use the following code to load the transaction data for association rules mining. <code>as()</code> function coerce the dataset into transaction data type for association rules mining. In the zoo data, the support for the rules is relatively low, with a maximum support of no more than 3%.</p>
-<pre class="r"><code>TransFood &lt;- read.csv(&#39;https://xiaoruizhu.github.io/Data-Mining-R/data/food_4_association.csv&#39;)
+<pre class="r"><code>TransFood &lt;- read.csv(&#39;https://yanyudm.github.io/Data-Mining-R/data/food_4_association.csv&#39;)
 TransFood &lt;- TransFood[, -1]
 # Find out elements that are not equal to 0 or 1 and change them to 1.
 Others &lt;- which(!(as.matrix(TransFood) ==1 | as.matrix(TransFood) ==0), arr.ind=T )

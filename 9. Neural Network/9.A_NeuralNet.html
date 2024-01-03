@@ -286,7 +286,7 @@ MSPE_nn</code></pre>
 <h2 number="1.2"><span class="header-section-number">1.2</span> Classification on Bankruptcy dataset</h2>
 <p>For classification problems, we use <code>neuralnet</code> and add <code>linear.output = FALSE</code> when training model. A common practice is again to scale/standardize predictor variables.</p>
 <pre class="r"><code>Bank_data_scaled &lt;- Bank_data &lt;- 
-  read.csv(file = &quot;https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/bankruptcy.csv&quot;, header=T)
+  read.csv(file = &quot;https://yanyudm.github.io/Data-Mining-R/lecture/data/bankruptcy.csv&quot;, header=T)
 # summary(Bank_data)
 library(MASS)
 maxs &lt;- apply(Bank_data[,-c(1:3)], 2, max)
@@ -357,7 +357,7 @@ unlist(slot(performance(pred, &quot;auc&quot;), &quot;y.values&quot;))</code></p
 <!-- - For classification problems with nnet you need to code the response to _factor_ first. In addition you want to add type = "class" for _predict()_  function. -->
 <!-- ### Credit Scoring Data -->
 <!-- ```{r} -->
-<!-- credit_data <- read.csv(file = "https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T) -->
+<!-- credit_data <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T) -->
 <!-- # rename -->
 <!-- library(dplyr) -->
 <!-- credit_data<- rename(credit_data, default=default.payment.next.month) -->

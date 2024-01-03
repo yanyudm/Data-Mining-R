@@ -81,7 +81,7 @@ mean((pi.out - Boston_test$medv)^2)
 The Credit Card Default Data has 10800 observations and 23 predictive variables. The details of the data can be found at http://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients. Think about what kind of factors could affect people to fail to pay their credit balance.
 
 ```{r , message=FALSE}
-credit_data <- read.csv(file = "https://xiaoruizhu.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
+credit_data <- read.csv(file = "https://yanyudm.github.io/Data-Mining-R/lecture/data/credit_default.csv", header=T)
 
 # rename
 library(dplyr)
