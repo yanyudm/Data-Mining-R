@@ -16,7 +16,7 @@ editor_options:
 
 # Credit Card Default Data
 
-We will use a Credit Card Default Data for this lab and illustration. The details of the data can be found at http://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients. 
+We will use a subset of Credit Card Default Data (sample size n=12,000) for this lab and illustration. The details of the full data (n=30,000) can be found at http://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients. 
 Think about what kind of factors could affect people to fail to pay their credit balance.
 
 We first load the credit scoring data. It is easy to load comma-separated values (CSV). 
