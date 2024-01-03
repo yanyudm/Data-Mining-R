@@ -113,12 +113,14 @@ table th:nth-of-type(3) {
 - Tracy Zhou Wu, Ph.D. (2008). Executive Director/VP, JPMorgan Chase, Dallas, TX.  
 - Shaonan Tian, Ph.D. (2012). Associate Prof. at San Jose State University, CA. 
 - Chaojiang Wu, Ph.D. (2013). Associate Prof. at Drexel University, PA (now Kent State University, OH).
-- Feng Mai, Ph.D.(2015), Associate Prof. at Stevens Institute of Technology
-- Shaobo Li, Ph.D. (2018). Tenure Track Assistant Prof. at University of Kansas.
+- Feng Mai, Ph.D.(2015), Associate Prof. at Stevens Institute of Technology, NJ
+- Shaobo Li, Ph.D. (2018). Tenure Track Assistant Prof. at University of Kansas, KS.
 - Yuankun Zhang, Ph.D. (2018). VP, Bank of New York Mellon, Pittsburgh, PA.
-- Brittany Green, Ph.D. (2020). Tenure Track Assistant Prof. at University of Louisville.
-- Xiaorui Zhu, Ph.D. (2022). Tenure Track Assistant Prof. at Towson University.
-- ianhai Zu, Ph.D. (2023). Tenure Track Assistant Prof. at the University of Texas at San Antonio.
-- Saidat Sanni, Zewei Lin, Jiantong Wang, ongoing Ph.D. students.
+- Brittany Green, Ph.D. (2020). Tenure Track Assistant Prof. at University of Louisville, KY.
+- Xiaorui Zhu, Ph.D. (2022). Tenure Track Assistant Prof. at Towson University, MD.
+- Tianhai Zu, Ph.D. (2023). Tenure Track Assistant Prof. at the University of Texas at San Antonio, TX.
+- Saidat Sanni, Ph.D. (2024). Tenure Track Assistant Prof. at University of Texas at San Antonio, TX.
+- Zewei Lin, Ph.D. (2024). Tenure Track Assistant Prof. at Texas State University, TX.
+- Jiantong Wang. Ph.D. Candidate. University of Cincinnati, OH.
 - Zhiyuan Dong, Ph.D. Principal, Media Center of Excellence at IRI, Chicago
 - Wei Xiong, Jingyin Gene, ChongQing, China
