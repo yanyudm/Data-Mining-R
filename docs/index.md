@@ -118,7 +118,7 @@ table th:nth-of-type(3) {
 - Yuankun Zhang, Ph.D. (2018). VP, Bank of New York Mellon, Pittsburgh, PA.
 - Brittany Green, Ph.D. (2020). Tenure Track Assistant Prof. at University of Louisville, KY.
 - Xiaorui Zhu, Ph.D. (2022). Tenure Track Assistant Prof. at Towson University, MD.
-- Tianhai Zu, Ph.D. (2023). Tenure Track Assistant Prof. at the University of Texas at San Antonio, TX.
+- Tianhai Zu, Ph.D. (2023). Tenure Track Assistant Prof. at University of Texas at San Antonio, TX.
 - Saidat Sanni, Ph.D. (2024). Tenure Track Assistant Prof. at University of Texas at San Antonio, TX.
 - Zewei Lin, Ph.D. (2024). Tenure Track Assistant Prof. at Texas State University, TX.
 - Jiantong Wang. Ph.D. Candidate. University of Cincinnati, OH.
