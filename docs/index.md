@@ -110,6 +110,7 @@ table th:nth-of-type(3) {
 <a id="bottom"></a>
 
 ### Contributors: 
+- Jiantong Wang, Ph.D Candidate. University of Cincinnati, Cincinnati, OH.
 - Tracy Zhou Wu, Ph.D. (2008). Executive Director/VP, JPMorgan Chase, Dallas, TX.  
 - Shaonan Tian, Ph.D. (2012). Tenure Track Assistant Prof. at San Jose State University, CA. 
 - Chaojiang Wu, Ph.D. (2013). Tenure Track Assistant Prof. at Drexel University, PA (now Kent State University, OH).
