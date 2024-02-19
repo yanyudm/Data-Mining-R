@@ -132,10 +132,13 @@ table()
 **Exercise:** Try `type="prob"` in prediction, what can you say about these predicted probabilities?
 
 ### Calculate the actual cost using a self-defined cost function.
-
+The output from predict() function with 'type = "prob"' is a matrix. The first column is the probability of response = 0, and the second column is the probability of response = 1.
+```{r}
+head(predict(credit_rpart, credit_test, type="prob"))
+```
 Calculate the cost for testing sample using above cost function
 ```{r}
-cost(credit_test$default,  predict(credit_rpart, credit_test, type="prob"))
+cost(credit_test$default,  predict(credit_rpart, credit_test, type="prob")[,2])
 ```
 
 
