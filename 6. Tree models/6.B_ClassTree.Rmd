@@ -118,9 +118,18 @@ cost <- function(r, phat){
   c0 <-(r==0)&(phat>pcut) #logical vector - true if actual 0 but predict 1
   return(mean(weight1*c1+weight0*c0))
 }
-
-cost(credit_train$default, predict(credit_rpart, credit_train, type="prob"))
 ```
+
+The output from predict() function with 'type = "prob"' is a matrix. The first column is the probability of response = 0, and the second column is the probability of response = 1.
+```{r}
+head(predict(credit_rpart, credit_test, type="prob"))
+```
+
+Calculate the in-sample cost.
+```{R}
+cost(credit_train$default, predict(credit_rpart, credit_train, type="prob")[,2])
+```
+
 
 **Exercise:** Out-of-sample prediction
 ```{r, eval=FALSE}
@@ -132,10 +141,7 @@ table()
 **Exercise:** Try `type="prob"` in prediction, what can you say about these predicted probabilities?
 
 ### Calculate the actual cost using a self-defined cost function.
-The output from predict() function with 'type = "prob"' is a matrix. The first column is the probability of response = 0, and the second column is the probability of response = 1.
-```{r}
-head(predict(credit_rpart, credit_test, type="prob"))
-```
+
 Calculate the cost for testing sample using above cost function
 ```{r}
 cost(credit_test$default,  predict(credit_rpart, credit_test, type="prob")[,2])
