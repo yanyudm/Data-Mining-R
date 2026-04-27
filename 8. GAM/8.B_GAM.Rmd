@@ -126,7 +126,7 @@ In order to see the in-sample fit performance, you may look into the confusion m
 pcut_gam <- 1/6
 prob_gam_in <-predict(credit_gam,credit_train,type="response")
 pred_gam_in <- (prob_gam_in>=pcut_gam)*1
-table(credit_train$default, prob_gam_in,dnn=c("Observed","Predicted"))
+table(credit_train$default, pred_gam_in,dnn=c("Observed","Predicted"))
 ```
 
 The asymmetric cost with 5:1 cost ratio is: 
